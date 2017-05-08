@@ -1,0 +1,261 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.12.0.0
+Copyright (C) 2014 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: kou Microsoft, Microsoft, LIC=21E2Z-JRUXQ-VDNKA-1PZMP-78GH4-6IFSQ
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Standard  Version: 5.12.0.0
+Toolchain Path:  D:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.05 (build 41)
+Assembler:       Armasm.exe V5.05 (build 41)
+Linker/Locator:  ArmLink.exe V5.05 (build 41)
+Library Manager: ArmAr.exe V5.05 (build 41)
+Hex Converter:   FromElf.exe V5.05 (build 41)
+CPU DLL:         SARMCM3.DLL V5.12.0.0
+Dialog DLL:      DCM.DLL V1.13.0.0
+    Target DLL: Segger\JL2CM3.dll
+Dialog DLL:      TCM.DLL V1.14.2.0
+ 
+<h2>Project:</h2>
+E:\submarine\Ó²¼þ×ÊÁÏ\³ÌÐò\test_ARM\test.uvproj
+Project File Date:  12/24/2016
+
+<h2>Output:</h2>
+Rebuild target 'Target 1'
+compiling core_cm3.c...
+compiling system_stm32f10x.c...
+compiling main.c...
+compiling stm32f10x_it.c...
+compiling led.c...
+compiling uart.c...
+compiling misc.c...
+compiling stm32f10x_adc.c...
+compiling stm32f10x_bkp.c...
+compiling stm32f10x_can.c...
+compiling stm32f10x_cec.c...
+compiling stm32f10x_crc.c...
+compiling stm32f10x_dac.c...
+compiling stm32f10x_dbgmcu.c...
+compiling stm32f10x_dma.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_flash.c...
+compiling stm32f10x_fsmc.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_i2c.c...
+compiling stm32f10x_iwdg.c...
+compiling stm32f10x_pwr.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_rtc.c...
+compiling stm32f10x_sdio.c...
+compiling stm32f10x_spi.c...
+compiling stm32f10x_tim.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_wwdg.c...
+assembling startup_stm32f10x_md.s...
+linking...
+Program Size: Code=5052 RO-data=268 RW-data=44 ZI-data=1028  
+FromELF: creating hex file...
+".\OBJ\test.axf" - 0 Error(s), 0 Warning(s).
+
+<h2>Collection of Component include folders:</h2>
+  E:\submarine\Ó²¼þ×ÊÁÏ\³ÌÐò\test_ARM\RTE
+  D:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+Load "E:\\submarine\\Ó²¼þ×ÊÁÏ\\³ÌÐò\\test_ARM\\OBJ\\test.axf" 
+Set JLink Project File to "E:\submarine\Ó²¼þ×ÊÁÏ\³ÌÐò\test_ARM\JLinkSettings.ini"
+* JLink Info: Device "STM32F103VE" selected (512 KB flash, 64 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.58a, compiled Dec  5 2012 18:38:08
+Firmware: J-Link ARM V8 compiled Nov 14 2012 22:34:52
+Hardware: V8.00
+S/N : 308622869 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFULL 
+ 
+* JLink Info: STM32F1xxx: Can not attach to CPU. Trying connect under reset.
+Error: Flash Download failed  -  Target DLL has been cancelled
+Load "E:\\submarine\\Ó²¼þ×ÊÁÏ\\³ÌÐò\\test_ARM\\OBJ\\test.axf" 
+Set JLink Project File to "E:\submarine\Ó²¼þ×ÊÁÏ\³ÌÐò\test_ARM\JLinkSettings.ini"
+* JLink Info: Device "STM32F103VE" selected (512 KB flash, 64 KB RAM).
+ 
+JLink info:
+------------
+DLL: V4.58a, compiled Dec  5 2012 18:38:08
+Firmware: J-Link ARM V8 compiled Nov 14 2012 22:34:52
+Hardware: V8.00
+S/N : 308622869 
+Feature(s) : RDI,FlashDL,FlashBP,JFlash,GDBFULL 
+ 
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: Found SWD-DP with ID 0x1BA01477
+* JLink Info: TPIU fitted.
+* JLink Info: ETM fitted.
+* JLink Info: FPUnit: 6 code (BP) slots and 2 literal slots
+* JLink Info: Found Cortex-M3 r1p1, Little endian.
+ROMTableAddr = 0xE00FF003
+ 
+Target info:
+------------
+Device: STM32F103VE
+VTarget = 3.338V
+State of Pins: 
+TCK: 0, TDI: 0, TDO: 0, TMS: 1, TRES: 1, TRST: 1
+Hardware-Breakpoints: 6
+Software-Breakpoints: 8192
+Watchpoints:          4
+JTAG speed: 50 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
+</pre>
+</body>
+</html>
+chpoints:          4
+JTAG speed: 50 kHz
+ 
+Erase Done.
+Programming Done.
+Verify OK.
+Application running ...
+Å
+demo\led.c(28): error:  #20: identifier "GPIO_Mode_Out_PP" is undefined
+      GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP; //ÉèÖÃÒý½ÅÄ£Ê½ÎªÍÆÃâÊä³öÄ£Ê½                                              
+demo\led.c(29): error:  #20: identifier "GPIO_Speed_50MHz" is undefined
+      GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;//ÉèÖÃÒý½ÅËÙ¶ÈÎª50MHZ         
+demo\led.c(30): warning:  #223-D: function "GPIO_Init" declared implicitly
+      GPIO_Init(LED1_GPIO_PORT, &GPIO_InitStructure);//µ÷ÓÃ¿âº¯Êý£¬³õÊ¼»¯GPIO
+demo\led.c(30): error:  #20: identifier "GPIOC" is undefined
+      GPIO_Init(LED1_GPIO_PORT, &GPIO_InitStructure);//µ÷ÓÃ¿âº¯Êý£¬³õÊ¼»¯GPIO
+demo\led.c(32): error:  #20: identifier "GPIO_Pin_15" is undefined
+      GPIO_InitStructure.GPIO_Pin =LED2_GPIO_PIN;
+demo\led.c(35): error:  #20: identifier "GPIOG" is undefined
+      GPIO_Init(LED2_GPIO_PORT, &GPIO_InitStructure);
+demo\led.c(37): error:  #20: identifier "GPIO_Pin_9" is undefined
+      GPIO_InitStructure.GPIO_Pin =LED3_GPIO_PIN;
+demo\led.c(40): error:  #20: identifier "GPIOB" is undefined
+      GPIO_Init(LED3_GPIO_PORT, &GPIO_InitStructure);
+demo\led.c(49): error:  #20: identifier "uint8_t" is undefined
+  void LEDXToggle(uint8_t ledx)
+demo\led.c(53): error:  #20: identifier "GPIOC" is undefined
+      LED1_GPIO_PORT->ODR^=LED1_GPIO_PIN;
+demo\led.c(53): error:  #20: identifier "GPIO_Pin_13" is undefined
+      LED1_GPIO_PORT->ODR^=LED1_GPIO_PIN;
+demo\led.c(57): error:  #20: identifier "GPIOG" is undefined
+      LED2_GPIO_PORT->ODR^=LED2_GPIO_PIN;
+demo\led.c(57): error:  #20: identifier "GPIO_Pin_15" is undefined
+      LED2_GPIO_PORT->ODR^=LED2_GPIO_PIN;
+demo\led.c(61): error:  #20: identifier "GPIOB" is undefined
+      LED3_GPIO_PORT->ODR^=LED3_GPIO_PIN;
+demo\led.c(61): error:  #20: identifier "GPIO_Pin_9" is undefined
+      LED3_GPIO_PORT->ODR^=LED3_GPIO_PIN;
+demo\led.c(72): warning:  #1-D: last line of file ends without a newline
+  //}
+demo\led.c: 3 warnings, 21 errors
+compiling uart.c...
+demo\include.h(35): error:  #20: identifier "uint8_t" is undefined
+  void LEDXToggle(uint8_t ledx);
+demo\uart.h(44): error:  #20: identifier "USART_TypeDef" is undefined
+  extern void TXD_USART(USART_TypeDef* USARTx,uint16_t data,int8_t type);
+demo\uart.h(44): error:  #20: identifier "uint16_t" is undefined
+  extern void TXD_USART(USART_TypeDef* USARTx,uint16_t data,int8_t type);
+demo\uart.h(44): error:  #20: identifier "int8_t" is undefined
+  extern void TXD_USART(USART_TypeDef* USARTx,uint16_t data,int8_t type);
+demo\uart.h(45): error:  #20: identifier "USART_TypeDef" is undefined
+  static void TXD_USART_DEC(USART_TypeDef* USARTx,uint16_t data);
+demo\uart.h(45): error:  #20: identifier "uint16_t" is undefined
+  static void TXD_USART_DEC(USART_TypeDef* USARTx,uint16_t data);
+demo\uart.h(46): error:  #20: identifier "USART_TypeDef" is undefined
+  static void TXD_USART_HEX(USART_TypeDef* USARTx,uint16_t data);
+demo\uart.h(46): error:  #20: identifier "uint16_t" is undefined
+  static void TXD_USART_HEX(USART_TypeDef* USARTx,uint16_t data);
+demo\uart.h(47): error:  #20: identifier "USART_TypeDef" is undefined
+  static void TXD_USART_BIN(USART_TypeDef* USARTx,uint16_t data);
+demo\uart.h(47): error:  #20: identifier "uint16_t" is undefined
+  static void TXD_USART_BIN(USART_TypeDef* USARTx,uint16_t data);
+demo\uart.h(48): error:  #20: identifier "USART_TypeDef" is undefined
+  static void TXD_USART_CHAR(USART_TypeDef* USARTx,uint16_t data);
+demo\uart.h(48): error:  #20: identifier "uint16_t" is undefined
+  static void TXD_USART_CHAR(USART_TypeDef* USARTx,uint16_t data);
+demo\uart.c(15): error:  #20: identifier "GPIO_InitTypeDef" is undefined
+        GPIO_InitTypeDef GPIO_InitStruct;
+demo\uart.c(16): error:  #20: identifier "GPIO_Pin_9" is undefined
+        GPIO_InitStruct.GPIO_Pin = GPIO_Pin_9;
+demo\uart.c(17): error:  #20: identifier "GPIO_Mode_AF_PP" is undefined
+        GPIO_InitStruct.GPIO_Mode = GPIO_Mode_AF_PP;
+demo\uart.c(18): error:  #20: identifier "GPIO_Speed_50MHz" is undefined
+        GPIO_InitStruct.GPIO_Speed = GPIO_Speed_50MHz;
+demo\uart.c(19): warning:  #223-D: function "GPIO_Init" declared implicitly
+        GPIO_Init(GPIOA, &GPIO_InitStruct);
+demo\uart.c(19): error:  #20: identifier "GPIOA" is undefined
+        GPIO_Init(GPIOA, &GPIO_InitStruct);
+demo\uart.c(20): error:  #20: identifier "GPIO_Pin_10" is undefined
+        GPIO_InitStruct.GPIO_Pin = GPIO_Pin_10;
+demo\uart.c(21): error:  #20: identifier "GPIO_Mode_IN_FLOATING" is undefined
+        GPIO_InitStruct.GPIO_Mode = GPIO_Mode_IN_FLOATING;
+demo\uart.c(28): error:  #20: identifier "USART_InitTypeDef" is undefined
+        USART_InitTypeDef USART_InitStruct;
+demo\uart.c(30): error:  #20: identifier "USART_WordLength_8b" is undefined
+        USART_InitStruct.USART_WordLength = USART_WordLength_8b;
+demo\uart.c(31): error:  #20: identifier "USART_StopBits_1" is undefined
+        USART_InitStruct.USART_StopBits = USART_StopBits_1;
+demo\uart.c(32): error:  #20: identifier "USART_Parity_No" is undefined
+        USART_InitStruct.USART_Parity = USART_Parity_No;
+demo\uart.c(33): error:  #20: identifier "USART_HardwareFlowControl_None" is undefined
+        USART_InitStruct.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
+demo\uart.c(34): error:  #20: identifier "USART_Mode_Tx" is undefined
+        USART_InitStruct.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
+demo\uart.c(34): error:  #20: identifier "USART_Mode_Rx" is undefined
+        USART_InitStruct.USART_Mode = USART_Mode_Tx | USART_Mode_Rx;
+demo\uart.c(35): warning:  #223-D: function "USART_Init" declared implicitly
+        USART_Init(USART1, &USART_InitStruct);
+demo\uart.c(35): error:  #20: identifier "USART1" is undefined
+        USART_Init(USART1, &USART_InitStruct);
+demo\uart.c(36): warning:  #223-D: function "USART_Cmd" declared implicitly
+        USART_Cmd(USART1, ENABLE);
+demo\uart.c(36): error:  #20: identifier "ENABLE" is undefined
+        USART_Cmd(USART1, ENABLE);
+demo\uart.c(48): error:  #20: identifier "USART_TypeDef" is undefined
+  extern void TXD_USART(USART_TypeDef* USARTx,uint16_t data,int8_t type)
+demo\uart.c(48): error:  #20: identifier "uint16_t" is undefined
+  extern void TXD_USART(USART_TypeDef* USARTx,uint16_t data,int8_t type)
+demo\uart.c: 3 warnings, 30 errors
+compiling misc.c...
+compiling stm32f10x_adc.c...
+compiling stm32f10x_bkp.c...
+compiling stm32f10x_can.c...
+compiling stm32f10x_cec.c...
+compiling stm32f10x_crc.c...
+compiling stm32f10x_dac.c...
+compiling stm32f10x_dbgmcu.c...
+compiling stm32f10x_dma.c...
+compiling stm32f10x_exti.c...
+compiling stm32f10x_flash.c...
+compiling stm32f10x_fsmc.c...
+compiling stm32f10x_gpio.c...
+compiling stm32f10x_i2c.c...
+compiling stm32f10x_iwdg.c...
+compiling stm32f10x_pwr.c...
+compiling stm32f10x_rcc.c...
+compiling stm32f10x_rtc.c...
+compiling stm32f10x_sdio.c...
+compiling stm32f10x_spi.c...
+compiling stm32f10x_tim.c...
+compiling stm32f10x_usart.c...
+compiling stm32f10x_wwdg.c...
+assembling startup_stm32f10x_md.s...
+".\OBJ\test.axf" - 64 Error(s), 9 Warning(s).
+
+<h2>Collection of Component include folders:</h2>
+  E:\submarine\Ó²¼þ×ÊÁÏ\³ÌÐò\test_ARM\RTE
+  D:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+Target not created.

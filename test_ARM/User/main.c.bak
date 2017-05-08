@@ -1,0 +1,42 @@
+#include "include.h"
+ 
+ 
+ void Delay_1ms(void)
+{
+    __IO uint16_t index = 0;
+    for(index = 10000;index != 0;index--)
+    {
+    }
+}
+
+void Delay_Nms(__IO uint16_t nCount)
+{
+    uint16_t i = 0;
+    for(i = 0;i<nCount;i++)
+    {
+        Delay_1ms();
+    }
+}
+
+
+
+int main(void)
+{
+	SystemInit();
+  /*³õÊ¼»¯LED¶Ë¿Ú*/
+  LED_GPIO_Config();
+	USART1_Init();
+	USART2_Init();
+	USART3_Init();
+	USART4_Init();
+	USART5_Init();
+  while(1)
+  {	 
+		USART_SendData(UART5,'a');
+		Delay_Nms(200);
+		LED3_ONOFF(Bit_SET);//PB9
+		Delay_Nms(200);
+		LED3_ONOFF(Bit_RESET);
+  }		
+}
+

@@ -1,0 +1,46 @@
+-------------------------------  SD.pjt - Debug  -------------------------------
+[disk_sd.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "disk_sd.c"
+
+[diskio.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "diskio.c"
+
+[DSP2833x_CodeStartBranch.asm] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "DSP2833x_CodeStartBranch.asm"
+
+[DSP2833x_CpuTimers.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "DSP2833x_CpuTimers.c"
+
+[DSP2833x_DefaultIsr.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "DSP2833x_DefaultIsr.c"
+
+[DSP2833x_GlobalVariableDefs.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "DSP2833x_GlobalVariableDefs.c"
+
+[DSP2833x_PieCtrl.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "DSP2833x_PieCtrl.c"
+
+[DSP2833x_PieVect.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "DSP2833x_PieVect.c"
+
+[DSP2833x_Spi.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "DSP2833x_Spi.c"
+
+[DSP2833x_SysCtrl.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "DSP2833x_SysCtrl.c"
+
+[DSP2833x_usDelay.asm] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "DSP2833x_usDelay.asm"
+
+[DSP2833x_Xintf.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "DSP2833x_Xintf.c"
+
+[ff.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "ff.c"
+
+[main.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "main.c"
+
+[SD_SPI_Erase.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "SD_SPI_Erase.c"
+
+[SD_SPI_Initialization.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "SD_SPI_Initialization.c"
+
+[SD_SPI_Read.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "SD_SPI_Read.c"
+
+[SD_SPI_Registers.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "SD_SPI_Registers.c"
+
+[SD_SPI_Transmission.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "SD_SPI_Transmission.c"
+
+[SD_SPI_Write.c] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -g -pdsw225 -fr"D:/MyProjects/example/YX28335PRO-V100/lab10-SD-SPI-Fatfs/Debug" -i"../INCLUDE" -d"_DEBUG" -d"LARGE_MODEL" -ml -v28 --float_support=fpu32 -@"../Debug.lkf" "SD_SPI_Write.c"
+
+[Linking...] "D:\CCStudio_v3.3\C2000\cgtools\bin\cl2000" -@"Debug.lkf"
+<Linking>
+
+Build Complete,
+  0 Errors, 0 Warnings, 0 Remarks.
