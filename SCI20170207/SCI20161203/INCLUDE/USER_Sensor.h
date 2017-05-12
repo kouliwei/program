@@ -7,9 +7,9 @@ extern "C" {
 
 #include "DSPTotal.h"
 
-extern int Yaw ;  //Æ«º½½Ç
-extern int Pitch ;//¸©Ñö
-extern int	Roll ; //¹ö×ª
+extern float Real_Yaw ;  //Æ«º½½Ç
+extern float Real_Pitch ;//¸©Ñö
+extern float Real_Roll ; //¹ö×ª
 extern int	Alt ;  //¸ß¶È
 extern int	Tempr ;//ÎÂ¶È
 extern int	Press ;//ÆøÑ¹
@@ -20,7 +20,7 @@ interrupt void Uart_AHRS(void);
 
 interrupt void ISRTimer0(void);
 
-extern void TXD_USART_DEC(Uint16 data);
+
 extern void Sensor_Analysis(void);
 //void sensor1Istr(void);
 

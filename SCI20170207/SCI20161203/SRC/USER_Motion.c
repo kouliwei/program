@@ -81,6 +81,7 @@ extern void Motion_Type(void)
 {
 	Uint16 type = 0;
 	type = Real_PcBuff[2];
+	Last_AUV_State = AUV_State;
 	switch(type)
 	{
 	case 0x36://qianjin
@@ -93,7 +94,10 @@ extern void Motion_Type(void)
 		AUV_State = 4;
 		break;
 	case 0x32://xia
-		AUV_State = 5;
+		if(Real_PcBuff[0] == 8)    //通过数据长度校验，增加容错
+			AUV_State = 5;
+		else
+			AUV_State = 1;
 		break;
 	case 0x31://shangyang,henggunzuoxian
 		AUV_State = 6;
@@ -112,69 +116,6 @@ extern void Motion_Type(void)
 		break;
 	}
 	UART_Send();
-//	switch(type)
-//	{
-//	case 0x36://qianjin
-// 		duty1=450;
-// 		duty2=795;
-// 		duty3=735;
-// 		duty4=450;
-//		break;
-//	case 0x34://houtui
-// 		duty1=750;
-// 		duty2=405;
-// 		duty3=450;
-// 		duty4=800;
-//		break;
-//	case 0x38://shang
-//		duty1=450;
-//		duty2=405;
-//		duty3=450;
-//		duty4=450;
-//		break;
-//	case 0x32://xia
-// 		duty1=750;
-// 		duty2=795;
-// 		duty3=735;
-// 		duty4=800;
-// 		StartCpuTimer0();
-//		break;
-//	case 0x31://shangyang,henggunzuoxian
-//		duty1=750;
-//		duty2=405;
-//		duty3=735;
-//		duty4=450;
-//		break;
-//	case 0x33://xiayang,henggunyouxian
-//		duty1=450;
-//		duty2=795;
-//		duty3=450;
-//		duty4=800;
-//		break;
-//	case 0x39://youzhuan
-//		duty1=450;
-// 		duty2=405;
-// 		duty3=735;
-// 		duty4=800;
-//		break;
-//	case 0x37://zuozhuan
-// 		duty1=750;
-// 		duty2=795;
-// 		duty3=450;
-// 		duty4=450;
-//		break;
-//	case 0x35://tingzhi
-//  		duty1=700;
-//  		duty2=700;
-//  		duty3=700;
-//  		duty4=700;
-//  		StopCpuTimer0();
-//		break;
-//	}
-//	EPwmSetup1(duty1);
-//	EPwmSetup2(duty2);
-//	EPwmSetup3(duty3);
-//	EPwmSetup4(duty4);
 }
 
 extern void Motion_Control(void)
@@ -182,7 +123,6 @@ extern void Motion_Control(void)
 	while(gl_FlagMotionCycle == 1)
 	{
 		gl_FlagMotionCycle = 0;
-		Sensor_Analysis();        //查询当前状态下AUV的姿态角。
 		switch(AUV_State)
 		{
 		case 2:
@@ -214,11 +154,27 @@ extern void Motion_Control(void)
 			break;
 		}
 	}
+	Motor_Out(Force);
 }
 
 
 static void Advance_Control(void)
 {
+	static float Ref_Yaw = 0;
+	static Uint16 temp = 0;
+	static int Forcex = 0;
+	if(gl_MotionFlag == 0)
+	{
+		gl_MotionFlag = 1;
+		temp = (Real_PcBuff[4] <<8 ) + Real_PcBuff[5];    //yaw 角
+		Saturation(&temp,0,360);
+		Ref_Yaw = (float)temp;
+		Forcex = Real_PcBuff[3];
+	}
+	Force[0] = Forcex_Change(Forcex);
+	Force[1] = 0;
+	Force[2] = 0;                                //暂时不考虑横滚控制；
+	Force[3] = Yaw_Control(Ref_Yaw);
 
 }
 static void Back_Control(void)
@@ -229,59 +185,26 @@ static void Up_Control(void)
 {
 
 }
+
+
+
 static void Down_Control(void)
 {
-	int16 Yaw_Ref = 0;
-	float32 u = 0, error = 0,KI = 0,KP = 0;
-	static float32 error_sum = 0;
-	error = Yaw_Ref - Yaw;
-	if(error < -180)
+	static float Ref_Yaw = 0;
+	static Uint16 temp = 0;
+	static int Forcez = 0;
+	if(gl_MotionFlag == 0)
 	{
-		error = error + 360;
+		gl_MotionFlag = 1;
+		temp = (Real_PcBuff[4] <<8 ) + Real_PcBuff[5];    //yaw 角
+		Saturation(&temp,0,360);
+		Ref_Yaw = (float)temp;
+		Forcez = Real_PcBuff[3];
 	}
-	error = - error/(float)180;
-
-
-
-	error_sum += error;
-	//积分限幅
-	if(error_sum > 10)
-	{
-		error_sum = 10;
-	}
-	else if(error_sum < -10)
-	{
-		error_sum = -10;
-	}
-
-
-	if(error > -0.17 && error < 0.17)
-	{
-		KI = 50;
-		KP = 100;
-
-	}
-	else
-	{
-		KI = 0;
-		KP = 150;
-	}
-	u = KP*error + KI*error_sum;
-
-	//输出限幅
-	if(u > 300)
-	{
-		u = 300;
-	}
-	else if(u < -300)
-	{
-		u = -300;
-	}
-
-	EPwmSetup1(3000 + (int)u);
-	EPwmSetup2(3000);
-	EPwmSetup3(3000);
-	EPwmSetup4(3000 + (int)u);
+	Force[0] = 0;
+	Force[1] = Forcez_Change(Forcez);
+	Force[2] = 0;                                //暂时不考虑横滚控制；
+	Force[3] = Yaw_Control(Ref_Yaw);
 }
 
 
@@ -289,9 +212,25 @@ static void ShangYang_Control(void)
 {
 
 }
-static void XiaYang_Control(void)
+static void XiaYang_Control(void)    //既前进又下沉又保证yaw角稳定
 {
-
+	static float Ref_Yaw = 0;
+	static Uint16 temp = 0;
+	static int Forcex = 0;
+	static int Forcez = 0;
+	if(gl_MotionFlag == 0)
+	{
+		gl_MotionFlag = 1;
+		temp = (Real_PcBuff[5] <<8 ) + Real_PcBuff[6];    //yaw 角
+		Saturation(&temp,0,360);
+		Ref_Yaw = (float)temp;
+		Forcex = Real_PcBuff[3];
+		Forcez = Real_PcBuff[4];
+	}
+	Force[0] = Forcez_Change(Forcex);
+	Force[1] = Forcez_Change(Forcez);
+	Force[2] = 0;                                //暂时不考虑横滚控制；
+	Force[3] = Yaw_Control(Ref_Yaw);
 }
 static void Right_Control(void)
 {
@@ -303,11 +242,69 @@ static void Left_Control(void)
 }
 static void Stop_Control(void)
 {
-
+	Force[0] = 0;
+	Force[1] = 0;
+	Force[2] = 0;
+	Force[3] = 0;
 }
 
 
 
+
+
+static int Yaw_Control(float Ref_Yaw)
+{
+	float u_temp = 0, error = 0,KI = 0,KP = 0;  //u 偏航力
+	static float error_sum = 0;
+	int u = 0;
+
+	error = Ref_Yaw - Real_Yaw;
+
+
+	if(error < -180)
+	{
+		error = error + 360;
+	}
+	else if(error > 180)
+	{
+		error = error - 360;
+	}
+	error = error/(float)180;  //归一化
+	//积分限幅
+	if(error_sum > 10)
+	{
+		error_sum = 10;
+	}
+	else if(error_sum < -10)
+	{
+		error_sum = -10;
+	}
+	if(error > -0.17 && error < 0.17)
+	{
+		error_sum += error;
+		KI = 0.5;
+		KP = 40;
+	}
+	else
+	{
+		error_sum = 0;
+		KI = 0;
+		KP = 40;
+	}
+	u_temp = KP*error + KI*error_sum;
+
+	//输出限幅
+	if(u_temp > MAX_YAWF)
+	{
+		u_temp = MAX_YAWF;
+	}
+	if(u_temp < MIN_YAWF)
+	{
+		u_temp = MIN_YAWF;
+	}
+	u = (int)u_temp;
+	return u;
+}
 
 static Uint16 Num_Change(Uint16 s)
 {
@@ -332,4 +329,31 @@ static Uint16 Num_Change(Uint16 s)
 		sp = PWM_FORWARD_MAX;
 	}
 	return sp;
+}
+
+static int	Forcez_Change(Uint16 s)
+{
+	float temp = 0;
+	temp = (float)s/255*80;
+	return (int)temp;
+}
+
+
+static int	Forcex_Change(Uint16 s)
+{
+	float temp = 0;
+	temp = (float)s/255*130;
+	return (int)temp;
+}
+
+static void Saturation(Uint16 *temp,Uint16 min,Uint16 max)
+{
+	if(*temp < min)
+	{
+		*temp = min;
+	}
+	else if(*temp > max)
+	{
+		*temp = max;
+	}
 }

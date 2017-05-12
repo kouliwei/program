@@ -1,6 +1,18 @@
 #include "USER_Pwm.h"
 
 
+const double Eff_Matrix[6][4] = {{CA,	   -CA,	    CA,		-CA},\
+						   {0,        0,	     0,       0},\
+						   {SA,	   SA,	    SA,	     SA},\
+						   {Y0*SA,   Y0*SA,  -Y0*SA,   -Y0*SA},\
+						   {-X0*CA,  X0*CA,   X0*CA,   -X0*CA},\
+						   {-Y0*CA,  Y0*CA,   Y0*CA,   -Y0*CA}};
+
+const double T_Matrix[4][4]= {{1/(4*CA),	   1/(4*SA),	    1/(4*Y0*SA),		-1/(4*X0*SA)},\
+		                {-1/(4*CA),	   1/(4*SA),	    1/(4*Y0*SA),		1/(4*X0*SA)},\
+		                {1/(4*CA),	   1/(4*SA),	    -1/(4*Y0*SA),		1/(4*X0*SA)},\
+		                {-1/(4*CA),	   1/(4*SA),	    -1/(4*Y0*SA),		-1/(4*X0*SA)}};
+
 
 extern void  EPwm_Init(void)
 {
@@ -255,4 +267,34 @@ void EPwmSetup3(Uint16 duty33)
 void EPwmSetup4(Uint16 duty44)
 {
 	EPwm4Regs.CMPA.half.CMPA=duty44;
+}
+
+void Motor_Out(int*	Force)
+{
+	uint8_t i = 0,j = 0;
+	double Temp[4]={0,0,0,0};
+	int8_t Temp2[4]={0,0,0,0};
+	for(i=0;i<4;i++)
+	{
+		Temp[i] = 0;
+		for(j=0;j<4;j++)
+		{
+			Temp[i] = Temp[i] + T_Matrix[i][j]*Force[j];
+		}
+		if(Temp[i] > 40)
+		{
+			Temp[i]  = 40;
+		}
+		else if(Temp[i] < -40)
+		{
+			Temp[i]  = -40;
+		}
+		Temp2[i]= (int8_t)Temp[i];
+	}
+
+	EPwm1Regs.CMPA.half.CMPA = PWM_STOP + 25 * Temp2[0];
+	EPwm2Regs.CMPA.half.CMPA = PWM_STOP + 25 * Temp2[1];
+	EPwm3Regs.CMPA.half.CMPA = PWM_STOP + 25 * Temp2[2];
+	EPwm4Regs.CMPA.half.CMPA = PWM_STOP + 25 * Temp2[3];
+
 }

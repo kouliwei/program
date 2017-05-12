@@ -6,7 +6,7 @@ extern "C" {
 #endif
 
 typedef unsigned char uint8_t;
-
+typedef signed char   int8_t;
 /*****************DEBUG  definition************************/
 /****************if DEBUG == 0:  motor test****************/
 /****************if DEBUG == 1:  Led test******************/
@@ -19,11 +19,11 @@ typedef unsigned char uint8_t;
 
 
 #ifndef	DEBUG
-	#define DEBUG   0
+	#define DEBUG   1
 #endif
 
 #ifndef	DEBUG_SHOW
-	#define	DEBUG_SHOW	'B'
+	#define	DEBUG_SHOW	'A'
 #endif
 
 //*******PC_SCI	ºÍ   AHRS_SCI ±ØÐë»¥³â************//
@@ -51,12 +51,11 @@ typedef unsigned char uint8_t;
 #include "string.h"
 #include "stdarg.h"
 #include "stdlib.h"
-
+#include "math.h"
 
 
 
 /***************user-define include*************/
-#include "USER.H"
 #include "USER_Distance.h"
 #include "USER_Pwm.h"
 #include "USER_Sci.h"
@@ -64,12 +63,11 @@ typedef unsigned char uint8_t;
 #include "USER_Motion.h"
 #include "USER_Common.h"
 #include "USER_SPI.h"
-#include "USER_Test.h"
 
 
 
-
-
+extern uint8_t gl_MotionFlag;
+extern int Force[4];
 extern int Kp ;
 extern int Ki ;
 extern int Kd ;
@@ -83,7 +81,7 @@ extern Uint16 ReceivedChar;
 extern Uint16 AHRS_RX_Flag;
 extern Uint16 PC_RX_Flag;
 extern Uint16 AUV_State;
-
+extern Uint16 Last_AUV_State;
 
 #ifdef __cplusplus
 }

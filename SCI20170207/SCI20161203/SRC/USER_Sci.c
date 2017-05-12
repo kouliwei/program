@@ -27,11 +27,13 @@
 // A5 5A 05 02 move1 check AA
 interrupt void Uart_Rx(void)
 {
-	static Uint16 state = 0;
-	static Uint16 length = 0;
-	static Uint16 lencnt = 0;
-	static Uint16 sum_check = 0;
-	unsigned char ReceivedChar = 0;
+	static volatile  uint8_t state = 0;
+	static volatile  uint8_t length = 0;
+	static volatile  uint8_t lencnt = 0;
+	static volatile  Uint16 sum_check = 0;
+	uint8_t ReceivedChar = 0;
+
+
 #if PC_SCI == 'A'
 	ReceivedChar = SciaRegs.SCIRXBUF.all;
 #elif PC_SCI == 'B'
@@ -152,91 +154,100 @@ extern void DataInter_AHRS(void)
 
 extern void DataInter_Pc(void)
 {
-   if(PC_RX_Flag == 1)    //data have bee received from the computer.
-   {
-	   PC_RX_Flag = 0;
-	   Store_PcData(Real_PcBuff,PC_Rx_Buffer);
-	   switch(Real_PcBuff[1])
-	   {
-	   case 1:                      //单推进器测试
-		   SingleMotor_Control();
-		   break;
-	   case 2: 						//运动类型选择
-		   Motion_Type();
-		   break;
-	   case 3:      				//请求距离信息
-		   UART_SendDis();
-		   break;
-	   case 4:						//推进器整体测试
-		   TotalMotor_Control();
-		   break;
-	   case 6:                     //PID参数设置
-		   Set_PID();
-		   break;
-	   case 7:                   //请求传感器数据
-		   UART_SendSensor();
-		   break;
-	   }
+	if(PC_RX_Flag == 1)    //data have bee received from the computer.
+	{
+		PC_RX_Flag = 0;
+		Store_PcData(Real_PcBuff,PC_Rx_Buffer);
+		if(Real_PcBuff[2] == 2)
+		{
+			gl_MotionFlag = 0;
+		}
+		else
+		{
+			gl_MotionFlag = 1;
+		}
+
+		switch(Real_PcBuff[1])
+		{
+		case 1:                      //单推进器测试
+			SingleMotor_Control();
+			break;
+		case 2: 						//运动类型选择
+			Motion_Type();
+			break;
+		case 3:      				//请求距离信息
+			UART_SendDis();
+			break;
+		case 4:						//推进器整体测试
+			TotalMotor_Control();
+			break;
+		case 6:                     //PID参数设置
+			Set_PID();
+			break;
+		case 7:                   //请求传感器数据
+			UART_SendSensor();
+			break;
+		}
    }
 }
 
 extern void UART_SendSensor(void)
 {
 	Uint16 checksum = 0,i = 0;
-	Scib_Xmit(0xA5);
-	Scib_Xmit(0x5A);
+	Sci_Send_Sing(0xA5,PC_SCI);
+	Sci_Send_Sing(0x5A,PC_SCI);
 	for(i = 0;i < 16;i++)
 	{
-		Scib_Xmit(Real_AHRSBuff[i]);
+		Sci_Send_Sing(Real_AHRSBuff[i],PC_SCI);
 		checksum += Real_AHRSBuff[i];
 	}
 	checksum &= 0x00FF;
-	Scib_Xmit(checksum);
-	Scib_Xmit(0xAA);
+	Sci_Send_Sing(checksum,PC_SCI);
+	Sci_Send_Sing(0xAA,PC_SCI);
 	checksum = 0;
 
 
-	Scib_Xmit(0xA5);
-	Scib_Xmit(0x5A);
+	Sci_Send_Sing(0xA5,PC_SCI);
+	Sci_Send_Sing(0x5A,PC_SCI);
 	for(i = 16;i < 36;i++)
 	{
-		Scib_Xmit(Real_AHRSBuff[i]);
+		Sci_Send_Sing(Real_AHRSBuff[i],PC_SCI);
 		checksum += Real_AHRSBuff[i];
 	}
 	checksum &= 0x00FF;
-	Scib_Xmit(checksum);
-	Scib_Xmit(0xAA);
+	Sci_Send_Sing(checksum,PC_SCI);
+	Sci_Send_Sing(0xAA,PC_SCI);
 }
 
 
 extern void UART_SendDis(void)
 {
 	Uint16 checksum = 0;
-	Scib_Xmit(0xA5);
-	Scib_Xmit(0x5A);
-	Scib_Xmit(0x05);
-	Scib_Xmit(0x03);
-	Scib_Xmit(gl_Distance);
+	Sci_Send_Sing(0xA5,PC_SCI);
+	Sci_Send_Sing(0x5A,PC_SCI);
+	Sci_Send_Sing(0x05,PC_SCI);
+	Sci_Send_Sing(0x03,PC_SCI);
+	Sci_Send_Sing(gl_Distance,PC_SCI);
 	checksum=0x05+0x03+gl_Distance;
 	checksum=checksum%256;
-	Scib_Xmit(checksum);
-	Scib_Xmit(0xAA);
+	Sci_Send_Sing(checksum,PC_SCI);
+	Sci_Send_Sing(0xAA,PC_SCI);
 }
 
 
 extern void UART_Send(void)
 {
 	Uint16 sum_check = 0,i = 0;
-	Scib_Xmit(0xA5);
-	Scib_Xmit(0x5A);
+	Sci_Send_Sing(0xA5,PC_SCI);
+	Sci_Send_Sing(0x5A,PC_SCI);
 	for(i = 0;i < Real_PcBuff[0] - 2;i++)
 	{
-		Scib_Xmit(Real_PcBuff[i]);
+		Sci_Send_Sing(Real_PcBuff[i],PC_SCI);
 		sum_check += Real_PcBuff[i];
 	}
 	sum_check &= 0x00FF;
-	Scib_Xmit(sum_check);
-	Scib_Xmit(0xAA);
+	Sci_Send_Sing(sum_check,PC_SCI);
+	Sci_Send_Sing(0xAA,PC_SCI);
 }
 
 
@@ -509,7 +520,26 @@ extern void TXD_USART_BIN(char temp,uint8_t data)
 }
 
 
+void TXD_USART_DEC(Uint16 data)
+{
+	Uint16 num[5]={0},m=0;
+	int16 i=0;
+	for(i=0;;)  //将data的每一位倒序存入num[5]的数组中，例如data=3456,则num[5]={6,5,4,3,0};for循环后i=3
+	{
+		m=data/10;
+		num[i]=data%10;
+		data=m;
+		if(data==0)
+			break;
+		else
+			i++;
+	}
 
+	for(;i>=0;i--)
+	{
+		Sci_Send_Sing(num[i]+48,PC_SCI);
+	}
+}
 
 
 

@@ -127,11 +127,15 @@ extern void IntTime_Config(void)
 
 extern void Para_Init(void)
 {
-	Uint16 i = 0;
+	uint8_t i = 0;
 	for(i = 0; i<100; i++)
 	{
 		Real_PcBuff[i] = 0;
 		Real_AHRSBuff[i] = 0;
+	}
+	for(i=0;i<4;i++)
+	{
+		Force[i] = 0;
 	}
 }
 
@@ -148,26 +152,26 @@ extern void Store_SensorData(void)
 {
 	Uint16 i = 0;
 	int16 temp = 0;
-	Uint16 temp1 = 0;
 	for(i = 0;i < 36;i++)
 	{
 		Real_AHRSBuff[i] = AHRS_Rx_Buffer[i];
 	}
-	temp = (Real_AHRSBuff[22] <<8 ) + Real_AHRSBuff[23];
-	if(temp&0x8000)
-	{
-		temp1 = temp&0x7fff;
-		//temp = 0-(temp&0x7fff);
-		Scib_Xmit('-');
-	}
-	else
-	{
-		temp = (temp&0x7fff);
-		temp1 = temp;
-	}
-	TXD_USART_DEC(temp1);
-	Scib_Xmit('\n');
-	Scib_Xmit('\r');
+	temp = (Real_AHRSBuff[2] <<8 ) + Real_AHRSBuff[3];    //yaw ½Ç
+	Real_Yaw = (float)temp/10;
+//	if(temp&0x8000)
+//	{
+//		temp1 = temp&0x7fff;
+//		//temp = 0-(temp&0x7fff);
+//		Sci_Send_Sing('-',PC_SCI);
+//	}
+//	else
+//	{
+//		temp = (temp&0x7fff);
+//		temp1 = temp;
+//	}
+//	TXD_USART_DEC(temp1);
+//	Sci_Send_Sing('\n',PC_SCI);
+//	Sci_Send_Sing('\r',PC_SCI);
 
 }
 

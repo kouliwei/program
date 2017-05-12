@@ -4,11 +4,10 @@
 
 SHELL = cmd.exe
 
-CG_TOOL_ROOT := C:/ti/ccsv5/tools/compiler/c2000_6.1.3
+CG_TOOL_ROOT := E:/ti/ccsv5/tools/compiler/c2000_6.1.3
 
 ORDERED_OBJS += \
 $(GEN_CMDS__FLAG) \
-"./SRC/USER_Test.obj" \
 "./SRC/USER_Spi.obj" \
 "./SRC/USER_Sensor.obj" \
 "./SRC/USER_Sci.obj" \
@@ -139,15 +138,15 @@ all: SCI_test.out
 SCI_test.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: C2000 Linker'
-	"C:/ti/ccsv5/tools/compiler/c2000_6.1.3/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -g --diag_warning=225 --display_error_number --diag_wrap=off -z --stack_size=0x300 -m"SCI_test.map" --warn_sections -i"C:/ti/ccsv5/tools/compiler/c2000_6.1.3/lib" -i"C:/ti/ccsv5/tools/compiler/c2000_6.1.3/include" --reread_libs --display_error_number --diag_wrap=off --xml_link_info="SCI_test_linkInfo.xml" --rom_model -o "SCI_test.out" $(ORDERED_OBJS)
+	"E:/ti/ccsv5/tools/compiler/c2000_6.1.3/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -g --diag_warning=225 --display_error_number --diag_wrap=off -z --stack_size=0x300 -m"SCI_test.map" --warn_sections -i"E:/ti/ccsv5/tools/compiler/c2000_6.1.3/lib" -i"E:/ti/ccsv5/tools/compiler/c2000_6.1.3/include" --reread_libs --display_error_number --diag_wrap=off --xml_link_info="SCI_test_linkInfo.xml" --rom_model -o "SCI_test.out" $(ORDERED_OBJS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
 	-$(RM) $(C2000_EXECUTABLE_OUTPUTS__QUOTED) "SCI_test.out"
-	-$(RM) "SRC\DSP2833x_CpuTimers.pp" "SRC\DSP2833x_DefaultIsr.pp" "SRC\DSP2833x_GlobalVariableDefs.pp" "SRC\DSP2833x_MemCopy.pp" "SRC\DSP2833x_PieCtrl.pp" "SRC\DSP2833x_PieVect.pp" "SRC\DSP2833x_Sci.pp" "SRC\DSP2833x_Spi.pp" "SRC\DSP2833x_SysCtrl.pp" "SRC\DSP2833x_Xintf.pp" "SRC\SCI.pp" "SRC\USER_Common.pp" "SRC\USER_Distance.pp" "SRC\USER_Motion.pp" "SRC\USER_Pwm.pp" "SRC\USER_Sci.pp" "SRC\USER_Sensor.pp" "SRC\USER_Spi.pp" "SRC\USER_Test.pp" 
-	-$(RM) "SRC\DSP2833x_ADC_cal.obj" "SRC\DSP2833x_CodeStartBranch.obj" "SRC\DSP2833x_CpuTimers.obj" "SRC\DSP2833x_DefaultIsr.obj" "SRC\DSP2833x_GlobalVariableDefs.obj" "SRC\DSP2833x_MemCopy.obj" "SRC\DSP2833x_PieCtrl.obj" "SRC\DSP2833x_PieVect.obj" "SRC\DSP2833x_Sci.obj" "SRC\DSP2833x_Spi.obj" "SRC\DSP2833x_SysCtrl.obj" "SRC\DSP2833x_Xintf.obj" "SRC\DSP2833x_usDelay.obj" "SRC\SCI.obj" "SRC\USER_Common.obj" "SRC\USER_Distance.obj" "SRC\USER_Motion.obj" "SRC\USER_Pwm.obj" "SRC\USER_Sci.obj" "SRC\USER_Sensor.obj" "SRC\USER_Spi.obj" "SRC\USER_Test.obj" 
+	-$(RM) "SRC\DSP2833x_CpuTimers.pp" "SRC\DSP2833x_DefaultIsr.pp" "SRC\DSP2833x_GlobalVariableDefs.pp" "SRC\DSP2833x_MemCopy.pp" "SRC\DSP2833x_PieCtrl.pp" "SRC\DSP2833x_PieVect.pp" "SRC\DSP2833x_Sci.pp" "SRC\DSP2833x_Spi.pp" "SRC\DSP2833x_SysCtrl.pp" "SRC\DSP2833x_Xintf.pp" "SRC\SCI.pp" "SRC\USER_Common.pp" "SRC\USER_Distance.pp" "SRC\USER_Motion.pp" "SRC\USER_Pwm.pp" "SRC\USER_Sci.pp" "SRC\USER_Sensor.pp" "SRC\USER_Spi.pp" 
+	-$(RM) "SRC\DSP2833x_ADC_cal.obj" "SRC\DSP2833x_CodeStartBranch.obj" "SRC\DSP2833x_CpuTimers.obj" "SRC\DSP2833x_DefaultIsr.obj" "SRC\DSP2833x_GlobalVariableDefs.obj" "SRC\DSP2833x_MemCopy.obj" "SRC\DSP2833x_PieCtrl.obj" "SRC\DSP2833x_PieVect.obj" "SRC\DSP2833x_Sci.obj" "SRC\DSP2833x_Spi.obj" "SRC\DSP2833x_SysCtrl.obj" "SRC\DSP2833x_Xintf.obj" "SRC\DSP2833x_usDelay.obj" "SRC\SCI.obj" "SRC\USER_Common.obj" "SRC\USER_Distance.obj" "SRC\USER_Motion.obj" "SRC\USER_Pwm.obj" "SRC\USER_Sci.obj" "SRC\USER_Sensor.obj" "SRC\USER_Spi.obj" 
 	-$(RM) "SRC\DSP2833x_ADC_cal.pp" "SRC\DSP2833x_CodeStartBranch.pp" "SRC\DSP2833x_usDelay.pp" 
 	-@echo 'Finished clean'
 	-@echo ' '

@@ -8,6 +8,9 @@
 int     fputc(int _c, register FILE *_fp);
 #endif
 
+
+uint8_t gl_MotionFlag = 0;
+int Force[4] = {0,0,0,0};
 Uint16 SPI_Tx_Buffer[10]= {0,1,2,3,4,5,6,7,8,9};//接收数据缓冲区
 Uint16 SPI_Rx_Buffer[10]= {9,8,7,6,5,4,3,2,1,0};//接收数据缓冲区
 int Kp = 4;
@@ -23,7 +26,9 @@ Uint16 ReceivedChar = 0;
 Uint16 AHRS_RX_Flag = 0;
 Uint16 PC_RX_Flag = 0;
 Uint16 AUV_State = 1;
+Uint16 Last_AUV_State = 1;
 
+#if	DEBUG == 0
 int sum(int cnt,...){
     int sum1=0;
     int i;
@@ -34,35 +39,29 @@ int sum(int cnt,...){
     va_end(ap);
     return sum1;
 }
+#endif
 
 void main(void)
 {
+
 	InitSysCtrl();
 	Gpio_Init();
 	Sci_Init();
 //	USER_SPIInit();
 	EPwm_Init();
-//	IntTime_Config();
-//	Para_Init();
-//	StartCpuTimer0();
+	IntTime_Config();
+	Para_Init();
+	StartCpuTimer0();
 
 
 
 
 #if	DEBUG == 0
-	Led_Drive(0x01);
-	Test();
-	Circle_Led();
-
-
-
-
 
 #elif	DEBUG == 1
 	while(1)
     {
-		Led_Drive(0x0C);
-
+		//Led_Drive(0x0C);
 //		if(index >= 10)
 //		{
 //			index = 0;
@@ -74,17 +73,18 @@ void main(void)
 //		index++;
 
 
-//		DataInter_AHRS();
-//		DataInter_Pc();
-//		if(AUV_State != 1)
-//		{
-//			Motion_Control();
-//		}
-
-
+		DataInter_AHRS();
+		DataInter_Pc();
+		if(AUV_State != 1)
+		{
+			Motion_Control();
+			Motor_Out(Force);
+		}
     }
 #endif
 }
+
+
 
 
 

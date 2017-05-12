@@ -36,7 +36,7 @@ extern void Sci_Send_Sing(uint8_t temp,...);
 extern void	Sci_Send(char *msg,...);
 
 extern void TXD_USART_BIN(char temp,uint8_t data);
-
+extern void TXD_USART_DEC(Uint16 data);
 #ifdef __cplusplus
 }
 #endif

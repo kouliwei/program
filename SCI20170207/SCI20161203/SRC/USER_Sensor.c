@@ -1,9 +1,9 @@
 #include "USER_Sensor.h"
 
 
-int Yaw = 0;  //偏航角
-int Pitch = 0;//俯仰
-int	Roll = 0; //滚转
+float Real_Yaw = 0;  //偏航角
+float Real_Pitch = 0;//俯仰
+float Real_Roll = 0; //滚转
 int	Alt = 0;  //高度
 int	Tempr = 0;//温度
 int	Press = 0;//气压
@@ -26,11 +26,11 @@ int	Press = 0;//气压
 
 interrupt void Uart_AHRS(void)
 {
-	static Uint16 state = 0;
-	static Uint16 length = 0;
-	static Uint16 lencnt = 0;
-	static Uint16 sum_check = 0;
-	unsigned char ReceivedChar = 0;
+	static volatile  uint8_t state = 0;
+	static volatile  uint8_t length = 0;
+	static volatile  uint8_t lencnt = 0;
+	static volatile  Uint16 sum_check = 0;
+	uint8_t ReceivedChar = 0;
 
 #if	AHRS_SCI == 'A'
 	if(SciaRegs.SCIRXST.bit.RXERROR == 1)
@@ -48,13 +48,6 @@ interrupt void Uart_AHRS(void)
 	ReceivedChar = ScibRegs.SCIRXBUF.all;
 #endif
 
-
-	if(ScibRegs.SCIRXST.bit.RXERROR == 1)
-	{
-		ScibRegs.SCICTL1.bit.SWRESET =0;
-		ScibRegs.SCICTL1.bit.SWRESET =1;
-	}
-	ReceivedChar = ScibRegs.SCIRXBUF.all;
 
 
 	switch(state)
@@ -194,123 +187,15 @@ interrupt void Uart_AHRS(void)
 
 #endif
 
-
-
-void TXD_USART_DEC(Uint16 data)
+//中断接收  每隔500ms去执行一次,500ms推进器控制周期
+void ISRTimer0(void)
 {
-	Uint16 num[5]={0},m=0;
-	int16 i=0;
-	for(i=0;;)  //将data的每一位倒序存入num[5]的数组中，例如data=3456,则num[5]={6,5,4,3,0};for循环后i=3
-	{
-		m=data/10;
-		num[i]=data%10;
-		data=m;
-		if(data==0)
-			break;
-		else
-			i++;
-	}
-
-	for(;i>=0;i--)
-	{
-		Scib_Xmit(num[i]+48);
-	}
+	LED3_Toggle();
+	gl_FlagMotionCycle = 1;
+	PieCtrlRegs.PIEACK.all |= PIEACK_GROUP1;
+	CpuTimer0Regs.TCR.bit.TIF = 1;
+	CpuTimer0Regs.TCR.bit.TRB = 1;
 }
-
-
-
-/*
-void sensor1Istr(void)
-{
-
-//unsigned char ReceivedChar;
- //msg = "\r\n\n\nGreat Doctor Bian!\0";
- Uint16 ReceivedChar;
- for(;;)
-     {
-
-        while(SciaRegs.SCIRXST.bit.RXRDY !=1) { } // wait for XRDY =1 for empty state
-
-        // Get character
-        ReceivedChar = SciaRegs.SCIRXBUF.all;
-        //scib_xmit(ReceivedChar);
-        if(ReceivedChar==0xa5)
-            {
-          	RC_Flag|=b_uart_head; //如果接收到A5 置位帧头标专位
-              rx_buffer[rx_wr_index++]=ReceivedChar; //保存这个字节.
-            }
-            else if(ReceivedChar==0x5a)
-                 {
-          	       if(RC_Flag&b_uart_head) //如果上一个字节是A5 那么认定 这个是帧起始字节
-          	     { rx_wr_index=0;  //重置 缓冲区指针
-          		   RC_Flag&=~b_rx_over; //这个帧才刚刚开始收
-                   }
-                   else //上一个字节不是A5
-          		  rx_buffer[rx_wr_index++]=ReceivedChar;
-                   RC_Flag&=~b_uart_head; //清帧头标志
-                 }
-          	    else
-          	   { rx_buffer[rx_wr_index++]=ReceivedChar;
-          		 RC_Flag&=~b_uart_head;
-          		 if(rx_wr_index==rx_buffer[0]) //收够了字节数.
-          	     {
-          			RC_Flag|=b_rx_over; //置位 接收完整的一帧数据
-          			UART2_decision1(); //立即提取数据。
-                    if(rx_buffer[1]==0xA2  && RCsensor_Flag==1)
-                    {
-                       RCsensor_Flag=0;
-                       rx_sensor_index=0;
-                       break;
-                    }
-
-                  }
-          	   }
-
-            if(rx_wr_index==RX_BUFFER_SIZE) //防止缓冲区溢出
-            rx_wr_index--;
-     }
-	//frame(0x03);
-}*/
-
-//
-//void UART2_decision1()
-//{
-////
-//        int i;
-//
-//
-//		if(RC_Flag&b_rx_over){  //已经接收完一帧?
-//				RC_Flag&=~b_rx_over; //清标志先
-//				//if(Sum_check()){
-//				//校验通过
-//				if(rx_buffer[1]==0xA1 && RCsensor_Flag==0){ //UART2_ReportIMU 的数据
-//					RCsensor_Flag=1;
-//					for(i=0;i<rx_wr_index;i++)
-//					rxsensor_buffer[rx_sensor_index++]=rx_buffer[i];	//取数据
-//	//			 sensor1Istr();
-//				}
-////				else
-////					sensor1Istr();
-//			   if(rx_buffer[1]==0xA2 && RCsensor_Flag==1){
-//				   rxsensor_buffer[rx_sensor_index++]=0xa5;
-//				   rxsensor_buffer[rx_sensor_index++]=0x5a;
-//				   for(i=0;i<rx_wr_index;i++)
-//				   {
-//				   		 rxsensor_buffer[rx_sensor_index++]=rx_buffer[i];	//取数据
-//
-//				   }
-//
-//
-//
-//				   //UART2_sensor_IMU();
-////				   RCsensor_Flag=0;
-//			   }
-////			   else
-////				   sensor1Istr();
-//		}
-
-//}
-
 
 
 ////传感器X轴标定  -16038~16814
@@ -334,99 +219,63 @@ void sensor1Istr(void)
 //}
 
 
-//中断接收  每隔500ms去执行一次,500ms推进器控制周期
-void ISRTimer0(void)
-{
-	gl_FlagMotionCycle = 1;
-	PieCtrlRegs.PIEACK.all |= PIEACK_GROUP1;
-	CpuTimer0Regs.TCR.bit.TIF = 1;
-	CpuTimer0Regs.TCR.bit.TRB = 1;
-//   //UART2_CommandRoute();
-//   //ledToggle();
-//   //scib_xmit(1);
-//    Sensor_analysis();        //50ms获取一次加速度值 对其进行积分获得速度值 作为PID的反馈信号。注意：对传感器的值进行整定归零
-//    sumAx += realAx;
-//    sumAx = sumAx / 16;
-//
-//   loopControlVerticalDown();   //垂直闭环控制
-
-}
 
 
-
-
-
-//
-//void loopControlVerticalDown(void)
-//{
-////	error = setPoint - sumAx;  //此处的ax需要进行归零处理 通过实际测量来进行整定
-////	sumError += error;
-////	dError = lastError - prevError;
-////	prevError = lastError;
-////	lastError = error;
-////
-////	PWMVaule = Kp*error + Ki*sumError + Kd*dError;
-////	if (PWMVaule > 10) PWMVaule = 10;
-////	if (PWMVaule < -40) PWMVaule = -40;
-////	EPwmSetup2(795+PWMVaule);
-////	EPwmSetup4(795+PWMVaule);
-//
-//}
 
 
 
 
 extern void Sensor_Analysis(void)
 {
-	int temp = 0;
-	temp = Real_AHRSBuff[2];
-	temp <<= 8;
-	temp |= Real_AHRSBuff[3];
-	if(temp&0x8000)
-	{
-		temp = 0 - (temp&0x7fff);
-	}else
-	{
-		temp = (temp&0x7fff);
-	}
-	Yaw = temp / 10; //偏航角0-3600 对应0-360度
-
-	temp = 0;
-	temp = Real_AHRSBuff[4];
-	temp <<= 8;
-	temp |= Real_AHRSBuff[5];
-	if(temp&0x8000){
-		temp = 0-(temp&0x7fff);
-	} else temp = (temp&0x7fff);
-	Pitch = temp / 10; //俯仰-900---900对应-90度---90度
-
-	temp = 0;
-	temp = Real_AHRSBuff[6];
-	temp <<= 8;
-	temp |= Real_AHRSBuff[7];
-	if(temp&0x8000)
-	{
-		temp = 0-(temp&0x7fff);
-	}
-	else
-	{
-		temp = (temp&0x7fff);
-	}
-	Roll = temp / 10; //横滚-1800---1800对应-180度---180度
-
-	temp = 0;
-	temp = Real_AHRSBuff[8];
-	temp <<= 8;
-	temp |= Real_AHRSBuff[9];
-	if(temp&0x8000)
-	{
-	   temp = 0-(temp&0x7fff);
-	}
-	else
-	{
-		temp = (temp&0x7fff);
-	}
-	Alt = temp / 10;	//高度单位m
+//	int temp = 0;
+//	temp = Real_AHRSBuff[2];
+//	temp <<= 8;
+//	temp |= Real_AHRSBuff[3];
+//	if(temp&0x8000)
+//	{
+//		temp = 0 - (temp&0x7fff);
+//	}else
+//	{
+//		temp = (temp&0x7fff);
+//	}
+//	Yaw = temp / 10; //偏航角0-3600 对应0-360度
+//
+//	temp = 0;
+//	temp = Real_AHRSBuff[4];
+//	temp <<= 8;
+//	temp |= Real_AHRSBuff[5];
+//	if(temp&0x8000){
+//		temp = 0-(temp&0x7fff);
+//	} else temp = (temp&0x7fff);
+//	Pitch = temp / 10; //俯仰-900---900对应-90度---90度
+//
+//	temp = 0;
+//	temp = Real_AHRSBuff[6];
+//	temp <<= 8;
+//	temp |= Real_AHRSBuff[7];
+//	if(temp&0x8000)
+//	{
+//		temp = 0-(temp&0x7fff);
+//	}
+//	else
+//	{
+//		temp = (temp&0x7fff);
+//	}
+//	Roll = temp / 10; //横滚-1800---1800对应-180度---180度
+//
+//	temp = 0;
+//	temp = Real_AHRSBuff[8];
+//	temp <<= 8;
+//	temp |= Real_AHRSBuff[9];
+//	if(temp&0x8000)
+//	{
+//	   temp = 0-(temp&0x7fff);
+//	}
+//	else
+//	{
+//		temp = (temp&0x7fff);
+//	}
+//	Alt = temp / 10;	//高度单位m
 //
 //	temp = 0;
 //	temp = Real_AHRSBuff[10];
