@@ -68,9 +68,9 @@ typedef signed char   int8_t;
 
 extern uint8_t gl_MotionFlag;
 extern int Force[4];
-extern int Kp ;
-extern int Ki ;
-extern int Kd ;
+extern float KP ;
+extern float KI ;
+extern float KD ;
 extern Uint16 gl_Distance ;
 extern Uint16 AHRS_Rx_Buffer[RX_BUFFER_SIZE]; //接收数据缓冲区
 extern Uint16 PC_Rx_Buffer[RX_BUFFER_SIZE]; //接收数据缓冲区

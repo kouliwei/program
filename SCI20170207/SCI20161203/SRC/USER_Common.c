@@ -112,8 +112,8 @@ extern void IntTime_Config(void)
 	//StartCpuTimer0();
 	StopCpuTimer0();  //停止定时器工作
 
-//   MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);
-//   InitFlash();
+   MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);
+   InitFlash();
 
 	IER |= M_INT9;
 	IER |= M_INT1;

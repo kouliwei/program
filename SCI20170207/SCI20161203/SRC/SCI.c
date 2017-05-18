@@ -13,9 +13,9 @@ uint8_t gl_MotionFlag = 0;
 int Force[4] = {0,0,0,0};
 Uint16 SPI_Tx_Buffer[10]= {0,1,2,3,4,5,6,7,8,9};//接收数据缓冲区
 Uint16 SPI_Rx_Buffer[10]= {9,8,7,6,5,4,3,2,1,0};//接收数据缓冲区
-int Kp = 4;
-int Ki = 3;
-int Kd = 0;
+float KP = 40;
+float KI = 0.5;
+float KD = 0;
 Uint16 gl_Distance = 0;
 Uint16 PC_Rx_Buffer[RX_BUFFER_SIZE]; //接收数据缓冲区
 Uint16 AHRS_Rx_Buffer[RX_BUFFER_SIZE]; //接收数据缓冲区
@@ -44,7 +44,7 @@ int sum(int cnt,...){
 void main(void)
 {
 
-	InitSysCtrl();
+ 	InitSysCtrl();
 	Gpio_Init();
 	Sci_Init();
 //	USER_SPIInit();

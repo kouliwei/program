@@ -8,9 +8,9 @@ unsigned int motion=0;
 
 extern void Set_PID(void)
 {
-	Kp = Real_PcBuff[2];
-	Ki = Real_PcBuff[3];
-	Kd = Real_PcBuff[4];
+	KP = (float)Real_PcBuff[2];			//比例系数0-255
+	KI = (float)Real_PcBuff[3]/255;		//积分系数0-1
+	KD = (float)Real_PcBuff[4];
 	UART_Send();
 }
 
@@ -85,7 +85,10 @@ extern void Motion_Type(void)
 	switch(type)
 	{
 	case 0x36://qianjin
-		AUV_State = 2;
+		if(Real_PcBuff[0] == 8)		//通过数据长度校验，增加容错
+			AUV_State = 2;
+		else
+			AUV_State = 1;
 		break;
 	case 0x34://houtui
 		AUV_State = 3;
@@ -103,7 +106,10 @@ extern void Motion_Type(void)
 		AUV_State = 6;
 		break;
 	case 0x33://xiayang,henggunyouxian
-		AUV_State = 7;
+		if(Real_PcBuff[0] == 9)		//通过数据长度校验，增加容错
+			AUV_State = 7;
+		else
+			AUV_State = 1;
 		break;
 	case 0x39://youzhuan
 		AUV_State = 8;
@@ -254,7 +260,7 @@ static void Stop_Control(void)
 
 static int Yaw_Control(float Ref_Yaw)
 {
-	float u_temp = 0, error = 0,KI = 0,KP = 0;  //u 偏航力
+	float u_temp = 0, error = 0;
 	static float error_sum = 0;
 	int u = 0;
 
@@ -282,15 +288,12 @@ static int Yaw_Control(float Ref_Yaw)
 	if(error > -0.17 && error < 0.17)
 	{
 		error_sum += error;
-		KI = 0.5;
-		KP = 40;
 	}
 	else
 	{
 		error_sum = 0;
-		KI = 0;
-		KP = 40;
 	}
+
 	u_temp = KP*error + KI*error_sum;
 
 	//输出限幅

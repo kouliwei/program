@@ -29,6 +29,7 @@ static void Stop_Control(void);
 static int Yaw_Control(float Ref_Yaw);
 static Uint16 Num_Change(Uint16 s);
 static int	Forcez_Change(Uint16 s);
+static int	Forcex_Change(Uint16 s);
 static void Saturation(Uint16 *temp,Uint16 min,Uint16 max);
 #ifdef __cplusplus
 }

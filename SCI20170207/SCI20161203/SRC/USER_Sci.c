@@ -156,6 +156,8 @@ extern void DataInter_Pc(void)
 {
 	if(PC_RX_Flag == 1)    //data have bee received from the computer.
 	{
+		//Delay_Nms(50);
+		LED1_Toggle();
 		PC_RX_Flag = 0;
 		Store_PcData(Real_PcBuff,PC_Rx_Buffer);
 		if(Real_PcBuff[2] == 2)
@@ -184,7 +186,7 @@ extern void DataInter_Pc(void)
 		case 6:                     //PID参数设置
 			Set_PID();
 			break;
-		case 7:                   //请求传感器数据
+		case 0xb1:                   //请求传感器数据
 			UART_SendSensor();
 			break;
 		}
@@ -207,16 +209,16 @@ extern void UART_SendSensor(void)
 	checksum = 0;
 
 
-	Sci_Send_Sing(0xA5,PC_SCI);
-	Sci_Send_Sing(0x5A,PC_SCI);
-	for(i = 16;i < 36;i++)
-	{
-		Sci_Send_Sing(Real_AHRSBuff[i],PC_SCI);
-		checksum += Real_AHRSBuff[i];
-	}
-	checksum &= 0x00FF;
-	Sci_Send_Sing(checksum,PC_SCI);
-	Sci_Send_Sing(0xAA,PC_SCI);
+//	Sci_Send_Sing(0xA5,PC_SCI);
+//	Sci_Send_Sing(0x5A,PC_SCI);
+//	for(i = 16;i < 36;i++)
+//	{
+//		Sci_Send_Sing(Real_AHRSBuff[i],PC_SCI);
+//		checksum += Real_AHRSBuff[i];
+//	}
+//	checksum &= 0x00FF;
+//	Sci_Send_Sing(checksum,PC_SCI);
+//	Sci_Send_Sing(0xAA,PC_SCI);
 }
 
 

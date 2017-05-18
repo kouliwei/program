@@ -30,8 +30,8 @@ $(GEN_CMDS__FLAG) \
 "./SRC/DSP2833x_CodeStartBranch.obj" \
 "./SRC/DSP2833x_ADC_cal.obj" \
 -l"libc.a" \
-"../28335_RAM_lnk.cmd" \
 "../DSP2833x_Headers_nonBIOS.cmd" \
+"../F28335.cmd" \
 
 -include ../makefile.init
 
