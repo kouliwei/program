@@ -16,7 +16,8 @@ extern void DataInter_Pc(void);
 extern void UART_SendSensor(void);
 extern void UART_SendDis(void);
 extern void UART_Send(void);
-
+extern void Send_Data(void);
+extern void Send_SingleSensor(void);
 
 
 extern void Sci_Init(void);

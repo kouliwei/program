@@ -104,6 +104,8 @@ extern void IntTime_Config(void)
 	PieVectTable.SCIRXINTA = &Uart_AHRS;
     PieVectTable.SCIRXINTB = &Uart_Rx;
 #endif
+    PieVectTable.SCIRXINTC = &DistanceIstr;    //测距，SCIC接收中断
+
 
 	EDIS;
 
@@ -117,17 +119,20 @@ extern void IntTime_Config(void)
 
 	IER |= M_INT9;
 	IER |= M_INT1;
+	IER |= M_INT8;
 
 	PieCtrlRegs.PIEIER1.bit.INTx7 = 1;    	//TIM0中断
 	PieCtrlRegs.PIEIER9.bit.INTx3 = 1;    	//SCIB接收中断
 	PieCtrlRegs.PIEIER9.bit.INTx1 = 1;		//SCIA接收中断
+	PieCtrlRegs.PIEIER8.bit.INTx5 = 1;		//SCIC接收中断
+
 	EINT;  //开启总中断
 }
 #endif
 
 extern void Para_Init(void)
 {
-	uint8_t i = 0;
+	uint8_t i = 0,j = 0;
 	for(i = 0; i<100; i++)
 	{
 		Real_PcBuff[i] = 0;
@@ -136,6 +141,13 @@ extern void Para_Init(void)
 	for(i=0;i<4;i++)
 	{
 		Force[i] = 0;
+	}
+	for(i = 0;i<200;i++)
+	{
+		for(j = 0;j<18;j++)
+		{
+			Buff_Total[i][j] = 0;
+		}
 	}
 }
 
@@ -151,6 +163,7 @@ extern void Store_PcData(Uint16* Data_To,Uint16* Data2_From)
 extern void Store_SensorData(void)
 {
 	Uint16 i = 0;
+	uint8_t j = 0,k = 0;
 	int16 temp = 0;
 	for(i = 0;i < 36;i++)
 	{
@@ -158,21 +171,47 @@ extern void Store_SensorData(void)
 	}
 	temp = (Real_AHRSBuff[2] <<8 ) + Real_AHRSBuff[3];    //yaw 角
 	Real_Yaw = (float)temp/10;
-//	if(temp&0x8000)
-//	{
-//		temp1 = temp&0x7fff;
-//		//temp = 0-(temp&0x7fff);
-//		Sci_Send_Sing('-',PC_SCI);
-//	}
-//	else
-//	{
-//		temp = (temp&0x7fff);
-//		temp1 = temp;
-//	}
-//	TXD_USART_DEC(temp1);
-//	Sci_Send_Sing('\n',PC_SCI);
-//	Sci_Send_Sing('\r',PC_SCI);
 
+	//store the yaw, pitch and roll angle into the AHRS_Data[0],[1],[2]
+	k = 2;
+	for(j=0;j<=2;j++)
+	{
+		temp = 0;
+		temp = (Real_AHRSBuff[k] <<8 ) + Real_AHRSBuff[k+1];
+		if(temp&0x8000)
+		{
+			temp = 0 - temp&0x7fff;
+		}
+		else
+		{
+			temp = (temp&0x7fff);
+		}
+		AHRS_Data[j]=(float)temp/10;
+		k = k+2;
+	}
+
+
+	//18 3 20 4 22 5 24 6 26 7 28 8 30 9 32 10 34 11
+	/*store the ax, ay, az into the AHRS_Data[3],[4],[5]
+	 *store the GYx, GYy, GYz into the AHRS_Data[6],[7],[8]
+	 *store the Mx, My, Mz into the AHRS_Data[9],[10],[11]
+	 */
+	k = 18;
+	for(j=3;j<=11;j++)
+	{
+		temp = 0;
+		temp = (Real_AHRSBuff[k] <<8 ) + Real_AHRSBuff[k+1];    //ax 角
+		if(temp&0x8000)
+		{
+			temp = 0 - temp&0x7fff;
+		}
+		else
+		{
+			temp = (temp&0x7fff);
+		}
+		AHRS_Data[j]=(float)temp;
+		k = k+2;
+	}
 }
 
 
@@ -204,16 +243,16 @@ extern void Delay_Nms(Uint16 num)
 }
 
 
-/**********Initial the GPIO49 pin which can control the rx/tx function of 485*************/
-
-static void Sci_485Dir_Gpio(void)
-{
-    EALLOW;
-    GpioCtrlRegs.GPBPUD.bit.GPIO49 = 0;
-    GpioCtrlRegs.GPBDIR.bit.GPIO49 = 1;
-    GpioDataRegs.GPBCLEAR.bit.GPIO49 = 1;
-    EDIS;
-}
+///**********Initial the GPIO49 pin which can control the rx/tx function of 485*************/
+//
+//static void Sci_485Dir_Gpio(void)
+//{
+//    EALLOW;
+//    GpioCtrlRegs.GPBPUD.bit.GPIO49 = 0;
+//    GpioCtrlRegs.GPBDIR.bit.GPIO49 = 1;
+//    GpioDataRegs.GPBCLEAR.bit.GPIO49 = 1;
+//    EDIS;
+//}
 
 
 

@@ -85,10 +85,7 @@ extern void Motion_Type(void)
 	switch(type)
 	{
 	case 0x36://qianjin
-		if(Real_PcBuff[0] == 8)		//通过数据长度校验，增加容错
-			AUV_State = 2;
-		else
-			AUV_State = 1;
+		AUV_State = 2;
 		break;
 	case 0x34://houtui
 		AUV_State = 3;
@@ -97,19 +94,13 @@ extern void Motion_Type(void)
 		AUV_State = 4;
 		break;
 	case 0x32://xia
-		if(Real_PcBuff[0] == 8)    //通过数据长度校验，增加容错
-			AUV_State = 5;
-		else
-			AUV_State = 1;
+		AUV_State = 5;
 		break;
 	case 0x31://shangyang,henggunzuoxian
 		AUV_State = 6;
 		break;
 	case 0x33://xiayang,henggunyouxian
-		if(Real_PcBuff[0] == 9)		//通过数据长度校验，增加容错
-			AUV_State = 7;
-		else
-			AUV_State = 1;
+		AUV_State = 7;
 		break;
 	case 0x39://youzhuan
 		AUV_State = 8;
@@ -160,7 +151,7 @@ extern void Motion_Control(void)
 			break;
 		}
 	}
-	Motor_Out(Force);
+	Motor_Out();
 }
 
 
@@ -232,26 +223,30 @@ static void XiaYang_Control(void)    //既前进又下沉又保证yaw角稳定
 		Ref_Yaw = (float)temp;
 		Forcex = Real_PcBuff[3];
 		Forcez = Real_PcBuff[4];
+		Control_Time = Real_PcBuff[7];
 	}
-	Force[0] = Forcez_Change(Forcex);
+	Force[0] = Forcex_Change(Forcex);
 	Force[1] = Forcez_Change(Forcez);
 	Force[2] = 0;                                //暂时不考虑横滚控制；
 	Force[3] = Yaw_Control(Ref_Yaw);
+	Store_Data1();
+
 }
 static void Right_Control(void)
 {
-
+	spacecontrol2();
+	Store_Data();
 }
 static void Left_Control(void)
 {
+	spacecontrol1();
+	Store_Data();
 
 }
 static void Stop_Control(void)
 {
-	Force[0] = 0;
-	Force[1] = 0;
-	Force[2] = 0;
-	Force[3] = 0;
+	AUV_State = 1;
+	MOTOR_STOP();
 }
 
 
@@ -359,4 +354,108 @@ static void Saturation(Uint16 *temp,Uint16 min,Uint16 max)
 	{
 		*temp = max;
 	}
+}
+
+extern void Store_Data1(void)
+{
+	static uint8_t i = 0;
+	if(Last_AUV_State != AUV_State)
+	{
+		i = 0;
+		Last_AUV_State = AUV_State;
+	}
+
+	if(gl_TempFlag[1] == 0)
+	{
+		if(i > 199)
+		{
+			i = 199;
+		}
+		Buff_Total[i][0] = Real_AHRSBuff[18];
+		Buff_Total[i][1] = Real_AHRSBuff[19];
+		Buff_Total[i][2] = Real_AHRSBuff[20];
+		Buff_Total[i][3] = Real_AHRSBuff[21];
+		Buff_Total[i][4] = Real_AHRSBuff[22];
+		Buff_Total[i][5] = Real_AHRSBuff[23];
+
+		Buff_Total[i][6] = Real_AHRSBuff[6];
+		Buff_Total[i][7] = Real_AHRSBuff[7];
+		Buff_Total[i][8] = Real_AHRSBuff[4];
+		Buff_Total[i][9] = Real_AHRSBuff[5];
+		Buff_Total[i][10] = Real_AHRSBuff[2];
+		Buff_Total[i][11] = Real_AHRSBuff[3];
+
+		Buff_Total[i][12] = Real_AHRSBuff[28];
+		Buff_Total[i][13] = Real_AHRSBuff[29];
+
+
+		Buff_Total[i][14] = Force[0];
+		Buff_Total[i][15] = Force[1];
+		Buff_Total[i][16] = Force[2];
+		Buff_Total[i][17] = Force[3];
+
+		Buff_Total[i][18] = gl_Dis[0];
+		Buff_Total[i][19] = gl_Dis[1];
+		i++;
+	}
+	else
+	{
+		i = 0;
+		Last_AUV_State = AUV_State;
+		AUV_State = 1;
+		MOTOR_STOP();
+	}
+
+}
+
+extern void Store_Data(void)
+{
+	static uint8_t i = 0;
+	if(Last_AUV_State != AUV_State)
+	{
+		i = 0;
+		Last_AUV_State = AUV_State;
+	}
+
+	if(gl_TempFlag[0] == 0)
+	{
+		if(i > 199)
+		{
+			i = 199;
+		}
+		Buff_Total[i][0] = Real_AHRSBuff[18];
+		Buff_Total[i][1] = Real_AHRSBuff[19];
+		Buff_Total[i][2] = Real_AHRSBuff[20];
+		Buff_Total[i][3] = Real_AHRSBuff[21];
+		Buff_Total[i][4] = Real_AHRSBuff[22];
+		Buff_Total[i][5] = Real_AHRSBuff[23];
+
+		Buff_Total[i][6] = Real_AHRSBuff[6];
+		Buff_Total[i][7] = Real_AHRSBuff[7];
+		Buff_Total[i][8] = Real_AHRSBuff[4];
+		Buff_Total[i][9] = Real_AHRSBuff[5];
+		Buff_Total[i][10] = Real_AHRSBuff[2];
+		Buff_Total[i][11] = Real_AHRSBuff[3];
+
+		Buff_Total[i][12] = Real_AHRSBuff[28];
+		Buff_Total[i][13] = Real_AHRSBuff[29];
+
+
+		Buff_Total[i][14] = T[0];
+		Buff_Total[i][15] = T[1];
+		Buff_Total[i][16] = T[2];
+		Buff_Total[i][17] = T[3];
+
+		Buff_Total[i][18] = gl_Dis[0];
+		Buff_Total[i][19] = gl_Dis[1];
+		i++;
+	}
+	else
+	{
+		i = 0;
+		Last_AUV_State = AUV_State;
+		AUV_State = 1;
+		MOTOR_STOP();
+	}
+
 }

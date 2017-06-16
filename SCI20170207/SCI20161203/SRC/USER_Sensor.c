@@ -187,11 +187,52 @@ interrupt void Uart_AHRS(void)
 
 #endif
 
-//中断接收  每隔500ms去执行一次,500ms推进器控制周期
+//中断接收  每隔50ms去执行一次,50ms推进器控制周期
 void ISRTimer0(void)
 {
-	LED3_Toggle();
+	static Uint16 flag[5] = {0,0,0,0,0};
 	gl_FlagMotionCycle = 1;
+	gl_TimeFlag[0] = 1;
+
+	if(AUV_State == 8 || AUV_State == 9)
+	{
+		if(flag[0] >= 20*sliding_para.data[8])  //time is over, reset the state of the AUV
+		{
+			flag[0] = 0;
+			LED4_Toggle();
+			gl_TempFlag[0] = 1;
+		}
+		else
+		{
+			flag[0]++;
+		}
+	}
+	else
+	{
+		gl_TempFlag[0] = 0;
+		flag[0] = 0;
+	}
+
+	if(AUV_State == 7)
+	{
+		if(flag[1] >= 20*Control_Time)  //time is over, reset the state of the AUV
+		{
+			flag[1] = 0;
+			LED4_Toggle();
+			gl_TempFlag[1] = 1;
+		}
+		else
+		{
+			flag[1]++;
+		}
+	}
+	else
+	{
+		gl_TempFlag[1] = 0;
+		flag[1] = 0;
+	}
+
+
 	PieCtrlRegs.PIEACK.all |= PIEACK_GROUP1;
 	CpuTimer0Regs.TCR.bit.TIF = 1;
 	CpuTimer0Regs.TCR.bit.TRB = 1;

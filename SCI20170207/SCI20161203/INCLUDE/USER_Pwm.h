@@ -27,7 +27,8 @@ extern void EPwmSetup1(Uint16 duty11);
 extern void EPwmSetup2(Uint16 duty22);
 extern void EPwmSetup3(Uint16 duty33);
 extern void EPwmSetup4(Uint16 duty44);
-extern void Motor_Out(int*	Force);
+extern void Motor_Out(void);
+extern void MOTOR_STOP(void);
 extern void EPwm_Init(void);
 static void EPwm1_Init(void);
 static void EPwm2_Init(void);
@@ -41,6 +42,8 @@ static void EPWM1_Regs_Init(void);
 static void EPWM2_Regs_Init(void);
 static void EPWM3_Regs_Init(void);
 static void EPWM4_Regs_Init(void);
+
+extern void MOTOR_TRAN(void);
 
 #ifdef __cplusplus
 }

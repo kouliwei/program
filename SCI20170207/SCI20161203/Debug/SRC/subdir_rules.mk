@@ -143,6 +143,13 @@ SRC/USER_Sensor.obj: ../SRC/USER_Sensor.c $(GEN_OPTS) $(GEN_SRCS)
 	@echo 'Finished building: $<'
 	@echo ' '
 
+SRC/USER_Sliding.obj: ../SRC/USER_Sliding.c $(GEN_OPTS) $(GEN_SRCS)
+	@echo 'Building file: $<'
+	@echo 'Invoking: C2000 Compiler'
+	"E:/ti/ccsv5/tools/compiler/c2000_6.1.3/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -g --include_path="E:/ti/ccsv5/tools/compiler/c2000_6.1.3/include" --include_path="E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE" --diag_warning=225 --display_error_number --diag_wrap=off --preproc_with_compile --preproc_dependency="SRC/USER_Sliding.pp" --obj_directory="SRC" $(GEN_OPTS__FLAG) "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
 SRC/USER_Spi.obj: ../SRC/USER_Spi.c $(GEN_OPTS) $(GEN_SRCS)
 	@echo 'Building file: $<'
 	@echo 'Invoking: C2000 Compiler'

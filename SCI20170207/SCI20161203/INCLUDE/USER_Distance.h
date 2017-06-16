@@ -8,8 +8,9 @@ extern "C" {
 #include "DSPTotal.h"
 
 
+
 void distanceframe(void);
-void distanceIstr(void);
+interrupt void DistanceIstr(void);
 
 
 #ifdef __cplusplus

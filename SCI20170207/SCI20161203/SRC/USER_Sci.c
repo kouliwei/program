@@ -160,7 +160,7 @@ extern void DataInter_Pc(void)
 		LED1_Toggle();
 		PC_RX_Flag = 0;
 		Store_PcData(Real_PcBuff,PC_Rx_Buffer);
-		if(Real_PcBuff[2] == 2)
+		if(Real_PcBuff[1] == 2)
 		{
 			gl_MotionFlag = 0;
 		}
@@ -186,6 +186,9 @@ extern void DataInter_Pc(void)
 		case 6:                     //PID参数设置
 			Set_PID();
 			break;
+		case 7:
+			Set_SlidingPara();
+			break;
 		case 0xb1:                   //请求传感器数据
 			UART_SendSensor();
 			break;
@@ -195,18 +198,33 @@ extern void DataInter_Pc(void)
 
 extern void UART_SendSensor(void)
 {
-	Uint16 checksum = 0,i = 0;
-	Sci_Send_Sing(0xA5,PC_SCI);
-	Sci_Send_Sing(0x5A,PC_SCI);
-	for(i = 0;i < 16;i++)
+	switch(Last_AUV_State)
 	{
-		Sci_Send_Sing(Real_AHRSBuff[i],PC_SCI);
-		checksum += Real_AHRSBuff[i];
+	case 8:
+	case 9:
+	case 7:
+		Send_Data();
+		break;
+	default:
+		Send_SingleSensor();
+		break;
 	}
-	checksum &= 0x00FF;
-	Sci_Send_Sing(checksum,PC_SCI);
-	Sci_Send_Sing(0xAA,PC_SCI);
-	checksum = 0;
+
+
+
+
+//	Uint16 checksum = 0,i = 0;
+//	Sci_Send_Sing(0xA5,PC_SCI);
+//	Sci_Send_Sing(0x5A,PC_SCI);
+//	for(i = 0;i < 16;i++)
+//	{
+//		Sci_Send_Sing(Real_AHRSBuff[i],PC_SCI);
+//		checksum += Real_AHRSBuff[i];
+//	}
+//	checksum &= 0x00FF;
+//	Sci_Send_Sing(checksum,PC_SCI);
+//	Sci_Send_Sing(0xAA,PC_SCI);
+//	checksum = 0;
 
 
 //	Sci_Send_Sing(0xA5,PC_SCI);
@@ -227,10 +245,11 @@ extern void UART_SendDis(void)
 	Uint16 checksum = 0;
 	Sci_Send_Sing(0xA5,PC_SCI);
 	Sci_Send_Sing(0x5A,PC_SCI);
-	Sci_Send_Sing(0x05,PC_SCI);
+	Sci_Send_Sing(0x06,PC_SCI);
 	Sci_Send_Sing(0x03,PC_SCI);
-	Sci_Send_Sing(gl_Distance,PC_SCI);
-	checksum=0x05+0x03+gl_Distance;
+	Sci_Send_Sing(gl_Dis[0],PC_SCI);
+	Sci_Send_Sing(gl_Dis[1],PC_SCI);
+	checksum=0x05+0x03+gl_Dis[0]+gl_Dis[1];
 	checksum=checksum%256;
 	Sci_Send_Sing(checksum,PC_SCI);
 	Sci_Send_Sing(0xAA,PC_SCI);
@@ -251,6 +270,54 @@ extern void UART_Send(void)
 	Sci_Send_Sing(sum_check,PC_SCI);
 	Sci_Send_Sing(0xAA,PC_SCI);
 }
+
+
+extern void Send_Data(void)
+{
+	Uint16 i = 0,j = 0;
+	Uint16 checksum = 0;
+	for(i = 0;i < 200;i++)
+	{
+		Sci_Send_Sing(0xA5,PC_SCI);
+		Sci_Send_Sing(0x5A,PC_SCI);
+		Sci_Send_Sing(0x18,PC_SCI);
+		Sci_Send_Sing(0xA1,PC_SCI);
+		checksum = 0;
+		for(j = 0;j < 20;j++)
+		{
+			Sci_Send_Sing(Buff_Total[i][j],PC_SCI);
+			checksum = checksum + Buff_Total[i][j];
+			Buff_Total[i][j] = 0; //reset after send
+		}
+		checksum = checksum + 0x18 + 0xA1;
+		checksum = checksum % 256;
+		Sci_Send_Sing(checksum,PC_SCI);
+		Sci_Send_Sing(0xAA,PC_SCI);
+		Delay_Nms(100);
+	}
+}
+
+
+
+
+
+extern void Send_SingleSensor(void)
+{
+	Uint16 checksum = 0,i = 0;
+	Sci_Send_Sing(0xA5,PC_SCI);
+	Sci_Send_Sing(0x5A,PC_SCI);
+	for(i = 0;i < 16;i++)
+	{
+		Sci_Send_Sing(Real_AHRSBuff[i],PC_SCI);
+		checksum += Real_AHRSBuff[i];
+	}
+	checksum &= 0x00FF;
+	Sci_Send_Sing(checksum,PC_SCI);
+	Sci_Send_Sing(0xAA,PC_SCI);
+
+}
+
+
 
 
 
@@ -324,18 +391,17 @@ static void Scic_Init(void)
 {
     // Note: Clocks were turned on to the SCIA peripheral
     // in the InitSysCtrl() function
-
+	ScicRegs.SCICTL1.bit.SWRESET =0;
  	ScicRegs.SCICCR.all =0x0007;   // 1 stop bit,  No loopback
                                    // No parity,8 char bits,
                                    // async mode, idle-line protocol
 	ScicRegs.SCICTL1.all =0x0003;  // enable TX, RX, internal SCICLK,
                                    // Disable RX ERR, SLEEP, TXWAKE
-	ScicRegs.SCICTL2.all =0x0003;
 	ScicRegs.SCICTL2.bit.TXINTENA = 1;
 	ScicRegs.SCICTL2.bit.RXBKINTENA =1;
 	#if (CPU_FRQ_150MHZ)
-	      ScicRegs.SCIHBAUD    =0x0000;  // 115200 baud @LSPCLK = 37.5MHz.
-	      ScicRegs.SCILBAUD    =0x0028;
+	      ScicRegs.SCIHBAUD    =0x0001;  // 9600 baud @LSPCLK = 37.5MHz.
+	      ScicRegs.SCILBAUD    =0x00E7;
 	#endif
 	#if (CPU_FRQ_100MHZ)
       SciaRegs.SCIHBAUD    =0x0001;  // 9600 baud @LSPCLK = 20MHz.

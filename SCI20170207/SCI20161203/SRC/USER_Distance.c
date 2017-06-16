@@ -3,25 +3,43 @@
 
 
 
+
 void distanceframe(void)
 {
-//	frameack();
-////	DELAY_US(1000000);
-//	distanceIstr();
-//	DELAY_US(50000);
-//    frameend();
+
 }
 
-void distanceIstr(void)
+interrupt void DistanceIstr(void)
 {
-	 //Uint16 ReceivedChar;
+	static volatile  uint8_t length = 0;
+	static uint8_t i = 0;
+	uint8_t ReceivedChar = 0;
+	if(ScicRegs.SCIRXST.bit.RXERROR == 1)
+	{
+		ScicRegs.SCICTL1.bit.SWRESET =0;
+		ScicRegs.SCICTL1.bit.SWRESET =1;
+	}
+
+	ReceivedChar = ScicRegs.SCIRXBUF.all;
 
 
-//	        while(SciaRegs.SCIRXST.bit.RXRDY !=1) { } // wait for XRDY =1 for empty state
-//
-//	        // Get character
-//	        ReceivedChar = SciaRegs.SCIRXBUF.all;
-	        //frame(0x10);
+	if(i == 0)
+	{
+		gl_Dis[i] = ReceivedChar;//将PC机发送来的数据存在ReceivedChar中
+		i = 1;
+	}
+	else
+	{
+		gl_Dis[i] = ReceivedChar;//将PC机发送来的数据存在ReceivedChar中
+		LED3_Toggle();
+		i = 0;
+	}
+
+	ScicRegs.SCIFFRX.bit.RXFFOVRCLR=1;   // Clear Overflow flag
+	ScicRegs.SCIFFRX.bit.RXFFINTCLR=1;   // Clear Interrupt flag
+
+	PieCtrlRegs.PIEACK.all |= PIEACK_GROUP8;
+
 }
 
 

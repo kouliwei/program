@@ -44,6 +44,7 @@ SRC/SCI.obj: E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Se
 SRC/SCI.obj: E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Motion.h
 SRC/SCI.obj: E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Common.h
 SRC/SCI.obj: E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_SPI.h
+SRC/SCI.obj: E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Sliding.h
 
 ../SRC/SCI.c: 
 E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/DSPTotal.h: 
@@ -89,3 +90,4 @@ E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Sensor.h:
 E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Motion.h: 
 E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Common.h: 
 E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_SPI.h: 
+E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Sliding.h: 

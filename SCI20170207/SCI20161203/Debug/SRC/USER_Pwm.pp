@@ -45,6 +45,7 @@ SRC/USER_Pwm.obj: E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/US
 SRC/USER_Pwm.obj: E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Motion.h
 SRC/USER_Pwm.obj: E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Common.h
 SRC/USER_Pwm.obj: E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_SPI.h
+SRC/USER_Pwm.obj: E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Sliding.h
 
 ../SRC/USER_Pwm.c: 
 E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Pwm.h: 
@@ -91,3 +92,4 @@ E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Sensor.h:
 E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Motion.h: 
 E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Common.h: 
 E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_SPI.h: 
+E:/kou/zhukong/software/DSP/SCI20170207/SCI20161203/INCLUDE/USER_Sliding.h: 

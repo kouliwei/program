@@ -26,6 +26,7 @@ C_SRCS += \
 ../SRC/USER_Pwm.c \
 ../SRC/USER_Sci.c \
 ../SRC/USER_Sensor.c \
+../SRC/USER_Sliding.c \
 ../SRC/USER_Spi.c 
 
 OBJS += \
@@ -49,6 +50,7 @@ OBJS += \
 ./SRC/USER_Pwm.obj \
 ./SRC/USER_Sci.obj \
 ./SRC/USER_Sensor.obj \
+./SRC/USER_Sliding.obj \
 ./SRC/USER_Spi.obj 
 
 ASM_DEPS += \
@@ -74,6 +76,7 @@ C_DEPS += \
 ./SRC/USER_Pwm.pp \
 ./SRC/USER_Sci.pp \
 ./SRC/USER_Sensor.pp \
+./SRC/USER_Sliding.pp \
 ./SRC/USER_Spi.pp 
 
 C_DEPS__QUOTED += \
@@ -94,6 +97,7 @@ C_DEPS__QUOTED += \
 "SRC\USER_Pwm.pp" \
 "SRC\USER_Sci.pp" \
 "SRC\USER_Sensor.pp" \
+"SRC\USER_Sliding.pp" \
 "SRC\USER_Spi.pp" 
 
 OBJS__QUOTED += \
@@ -117,6 +121,7 @@ OBJS__QUOTED += \
 "SRC\USER_Pwm.obj" \
 "SRC\USER_Sci.obj" \
 "SRC\USER_Sensor.obj" \
+"SRC\USER_Sliding.obj" \
 "SRC\USER_Spi.obj" 
 
 ASM_DEPS__QUOTED += \
@@ -147,6 +152,7 @@ C_SRCS__QUOTED += \
 "../SRC/USER_Pwm.c" \
 "../SRC/USER_Sci.c" \
 "../SRC/USER_Sensor.c" \
+"../SRC/USER_Sliding.c" \
 "../SRC/USER_Spi.c" 
 
 

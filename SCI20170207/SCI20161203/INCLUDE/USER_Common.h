@@ -76,7 +76,7 @@ static void Sci_Gpio(void);
 static void Scia_Gpio(void);
 static void Scib_Gpio(void);
 static void Scic_Gpio(void);
-static void Sci_485Dir_Gpio(void);
+//static void Sci_485Dir_Gpio(void);
 
 extern void Led_Drive(Uint16 num);
 

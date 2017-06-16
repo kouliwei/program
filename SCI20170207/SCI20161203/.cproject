@@ -68,8 +68,8 @@
 							</tool>
 						</toolChain>
 					</folderInfo>
-					<fileInfo id="com.ti.ccstudio.buildDefinitions.C2000.Debug.638994281.68924498" name="F28335.cmd" rcbsApplicability="disable" resourcePath="F28335.cmd" toolsToInvoke="com.ti.ccstudio.buildDefinitions.C2000_6.1.exe.linkerDebug.1845085471.1288190347">
-						<tool id="com.ti.ccstudio.buildDefinitions.C2000_6.1.exe.linkerDebug.1845085471.1288190347" name="C2000 Linker" superClass="com.ti.ccstudio.buildDefinitions.C2000_6.1.exe.linkerDebug.1845085471"/>
+					<fileInfo id="com.ti.ccstudio.buildDefinitions.C2000.Debug.638994281.1124594834" name="28335_RAM_lnk.cmd" rcbsApplicability="disable" resourcePath="28335_RAM_lnk.cmd" toolsToInvoke="com.ti.ccstudio.buildDefinitions.C2000_6.1.exe.linkerDebug.1845085471.656945028">
+						<tool id="com.ti.ccstudio.buildDefinitions.C2000_6.1.exe.linkerDebug.1845085471.656945028" name="C2000 Linker" superClass="com.ti.ccstudio.buildDefinitions.C2000_6.1.exe.linkerDebug.1845085471"/>
 					</fileInfo>
 					<sourceEntries>
 						<entry excluding="28335_RAM_lnk.cmd" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name=""/>

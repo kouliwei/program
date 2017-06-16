@@ -269,7 +269,7 @@ void EPwmSetup4(Uint16 duty44)
 	EPwm4Regs.CMPA.half.CMPA=duty44;
 }
 
-void Motor_Out(int*	Force)
+void Motor_Out()
 {
 	uint8_t i = 0,j = 0;
 	double Temp[4]={0,0,0,0};
@@ -297,4 +297,22 @@ void Motor_Out(int*	Force)
 	EPwm3Regs.CMPA.half.CMPA = PWM_STOP + 25 * Temp2[2];
 	EPwm4Regs.CMPA.half.CMPA = PWM_STOP + 25 * Temp2[3];
 
+}
+
+
+/* refering to the definition of motor sequence of bjw */
+void MOTOR_TRAN(void)
+{
+	EPwm1Regs.CMPA.half.CMPA = PWM_STOP + 25 * (int8_t)T[1];
+	EPwm2Regs.CMPA.half.CMPA = PWM_STOP + 25 * (int8_t)T[3];
+	EPwm3Regs.CMPA.half.CMPA = PWM_STOP + 25 * (int8_t)T[2];
+	EPwm4Regs.CMPA.half.CMPA = PWM_STOP + 25 * (int8_t)T[0];
+}
+
+void MOTOR_STOP(void)
+{
+	EPwm1Regs.CMPA.half.CMPA = PWM_STOP ;
+	EPwm2Regs.CMPA.half.CMPA = PWM_STOP ;
+	EPwm3Regs.CMPA.half.CMPA = PWM_STOP ;
+	EPwm4Regs.CMPA.half.CMPA = PWM_STOP ;
 }

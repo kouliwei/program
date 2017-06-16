@@ -31,6 +31,9 @@ static Uint16 Num_Change(Uint16 s);
 static int	Forcez_Change(Uint16 s);
 static int	Forcex_Change(Uint16 s);
 static void Saturation(Uint16 *temp,Uint16 min,Uint16 max);
+extern void Store_Data(void);
+extern void Store_Data1(void);
+
 #ifdef __cplusplus
 }
 #endif
