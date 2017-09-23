@@ -67,6 +67,7 @@ typedef struct{
 #include "USER_Common.h"
 #include "USER_SPI.h"
 #include "USER_Sliding.h"
+#include "USER_ADC.h"
 
 extern uint8_t  Control_Time;
 extern int8_t	Buff_Total[200][20];

@@ -114,8 +114,8 @@ extern void IntTime_Config(void)
 	//StartCpuTimer0();
 	StopCpuTimer0();  //停止定时器工作
 
-   MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);
-   InitFlash();
+//	MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);
+//	InitFlash();
 
 	IER |= M_INT9;
 	IER |= M_INT1;
@@ -221,6 +221,7 @@ extern void Gpio_Init(void)
 	Led_Gpio();
 	Key_Gpio();
 	Sci_Gpio();
+	InitMcbspbGpio();
 //	Sci_485Dir_Gpio();
 }
 
