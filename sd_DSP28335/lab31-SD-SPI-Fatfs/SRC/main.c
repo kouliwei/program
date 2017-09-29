@@ -11,13 +11,14 @@ FRESULT res=FR_OK;
 UINT br;
 
 //char path[512]="0:";
-Uint8 textFileBuffer[] = "感谢您使用研旭28335开发版 ！^_^ \r\n";   
+Uint8 textFileBuffer[] = "欢迎来到北门！^_^ \r\n";
 
 void main(void)
 {
 
 //	Uint16 i, testdata = 0x0000;
    FRESULT h;
+   Uint16 i = 0;
    char m[]="0:/fatfs.txt";
 // Step 1. Initialize System Control:
 // PLL, WatchDog, enable Peripheral Clocks
@@ -81,6 +82,7 @@ void main(void)
     if ( res == FR_OK )
     { 
       /* Write buffer to file */
+      for (i=0;i < 100;i++)
       res = f_write(&fsrc, textFileBuffer, sizeof(textFileBuffer), &br);     
  
     

@@ -1,10 +1,10 @@
 ******************************************************************************
-        TMS320C2000 COFF Linker PC v5.0.2                      
+             TMS320C2000 Linker PC v6.1.3                      
 ******************************************************************************
->> Linked Tue Mar 17 18:15:10 2015
+>> Linked Fri Sep 29 21:13:34 2017
 
-OUTPUT FILE NAME:   <./Debug/SD.out>
-ENTRY POINT SYMBOL: "_c_int00"  address: 00008000
+OUTPUT FILE NAME:   <C:/Users/koukou/Desktop/reposity/program/sd_DSP28335/lab31-SD-SPI-Fatfs/SD/../Debug/SD.out>
+ENTRY POINT SYMBOL: "_c_int00"  address: 00009ff3
 
 
 MEMORY CONFIGURATION
@@ -15,7 +15,7 @@ PAGE 0:
   BEGIN                 00000000   00000002  00000002  00000000  RWIX
   BOOT_RSVD             00000002   0000004e  00000000  0000004e  RWIX
   RAMM0                 00000050   000003b0  00000000  000003b0  RWIX
-  RAML                  00008000   00004000  00002170  00001e90  RWIX
+  RAML                  00008000   00004000  00002172  00001e8e  RWIX
   ZONE7A                00200000   0000fc00  00000000  0000fc00  RWIX
   CSM_RSVD              0033ff80   00000076  00000000  00000076  RWIX
   CSM_PWL               0033fff8   00000008  00000000  00000008  RWIX
@@ -86,79 +86,59 @@ SECTION ALLOCATION MAP
  output                                  attributes/
 section   page    origin      length       input sections
 --------  ----  ----------  ----------   ----------------
-.data      0    00000000    00000000     UNINITIALIZED
-
 codestart 
 *          0    00000000    00000002     
                   00000000    00000002     DSP2833x_CodeStartBranch.obj (codestart)
 
 .pinit     0    00008000    00000000     UNINITIALIZED
 
-.switch    0    00008000    00000000     UNINITIALIZED
+.text      0    00008000    00002111     
+                  00008000    0000145b     ff.obj (.text)
+                  0000945b    00000323     DSP2833x_DefaultIsr.obj (.text:retain)
+                  0000977e    00000157     SD_SPI_Initialization.obj (.text)
+                  000098d5    000000f6     DSP2833x_Xintf.obj (.text)
+                  000099cb    000000ee     DSP2833x_SysCtrl.obj (.text)
+                  00009ab9    000000e7     SD_SPI_Write.obj (.text)
+                  00009ba0    000000cc     SD_SPI_Read.obj (.text)
+                  00009c6c    000000b3     SD_SPI_Registers.obj (.text)
+                  00009d1f    000000a6     SD_SPI_Transmission.obj (.text)
+                  00009dc5    00000089     diskio.obj (.text)
+                  00009e4e    0000007c     DSP2833x_CpuTimers.obj (.text)
+                  00009eca    00000074     disk_sd.obj (.text)
+                  00009f3e    00000065     SD_SPI_Erase.obj (.text)
+                  00009fa3    00000050     main.obj (.text)
+                  00009ff3    00000046     rts2800_fpu32.lib : boot.obj (.text)
+                  0000a039    0000002c     DSP2833x_Spi.obj (.text)
+                  0000a065    00000028     DSP2833x_PieCtrl.obj (.text)
+                  0000a08d    00000021     rts2800_fpu32.lib : memcpy_ff.obj (.text)
+                  0000a0ae    00000020     DSP2833x_PieVect.obj (.text)
+                  0000a0ce    00000019     rts2800_fpu32.lib : args_main.obj (.text)
+                  0000a0e7    00000019                       : exit.obj (.text)
+                  0000a100    00000009                       : _lock.obj (.text)
+                  0000a109    00000008     DSP2833x_CodeStartBranch.obj (.text)
 
-IQmath     0    00008000    00000000     UNINITIALIZED
+.cinit     0    0000a111    00000042     
+                  0000a111    0000001c     main.obj (.cinit)
+                  0000a12d    0000000c     SD_SPI_Initialization.obj (.cinit)
+                  0000a139    0000000a     rts2800_fpu32.lib : _lock.obj (.cinit)
+                  0000a143    0000000a                       : exit.obj (.cinit)
+                  0000a14d    00000004     diskio.obj (.cinit)
+                  0000a151    00000002     --HOLE-- [fill = 0]
 
-.text      0    00008000    00002102     
-                  00008000    00000046     rts2800_fpu32.lib : boot.obj (.text)
-                  00008046    00000018                       : exit.obj (.text)
-                  0000805e    00000009                       : _lock.obj (.text)
-                  00008067    00000015                       : args_main.obj (.text)
-                  0000807c    00000074     disk_sd.obj (.text)
-                  000080f0    00000089     diskio.obj (.text)
-                  00008179    00000008     DSP2833x_CodeStartBranch.obj (.text)
-                  00008181    0000007a     DSP2833x_CpuTimers.obj (.text)
-                  000081fb    00000323     DSP2833x_DefaultIsr.obj (.text)
-                  0000851e    00000028     DSP2833x_PieCtrl.obj (.text)
-                  00008546    00000020     DSP2833x_PieVect.obj (.text)
-                  00008566    0000002c     DSP2833x_Spi.obj (.text)
-                  00008592    000000f0     DSP2833x_SysCtrl.obj (.text)
-                  00008682    000000f6     DSP2833x_Xintf.obj (.text)
-                  00008778    00001456     ff.obj (.text)
-                  00009bce    00000048     main.obj (.text)
-                  00009c16    00000065     SD_SPI_Erase.obj (.text)
-                  00009c7b    00000157     SD_SPI_Initialization.obj (.text)
-                  00009dd2    000000cd     SD_SPI_Read.obj (.text)
-                  00009e9f    000000b3     SD_SPI_Registers.obj (.text)
-                  00009f52    000000a7     SD_SPI_Transmission.obj (.text)
-                  00009ff9    000000e8     SD_SPI_Write.obj (.text)
-                  0000a0e1    00000021     rts2800_fpu32.lib : memcpy_ff.obj (.text)
-
-.cinit     0    0000a102    0000004f     
-                  0000a102    0000000a     rts2800_fpu32.lib : exit.obj (.cinit)
-                  0000a10c    0000000a                       : _lock.obj (.cinit)
-                  0000a116    00000004     diskio.obj (.cinit)
-                  0000a11a    0000002a     main.obj (.cinit)
-                  0000a144    0000000c     SD_SPI_Initialization.obj (.cinit)
-                  0000a150    00000001     --HOLE-- [fill = 0]
-
-ramfuncs   0    0000a151    0000001f     
-                  0000a151    0000001b     DSP2833x_SysCtrl.obj (ramfuncs)
-                  0000a16c    00000004     DSP2833x_usDelay.obj (ramfuncs)
+ramfuncs   0    0000a153    0000001f     
+                  0000a153    0000001b     DSP2833x_SysCtrl.obj (ramfuncs)
+                  0000a16e    00000004     DSP2833x_usDelay.obj (ramfuncs)
 
 csm_rsvd   0    0033ff80    00000000     DSECT
 
 csmpasswds 
 *          0    0033fff8    00000000     DSECT
 
-.adc_cal   0    00380080    00000000     NOLOAD SECTION
-
-IQmathTables 
-*          0    003fe000    00000000     NOLOAD SECTION
-
-IQmathTables2 
-*          0    003feb50    00000000     NOLOAD SECTION
-
-FPUmathTables 
-*          0    003febdc    00000000     NOLOAD SECTION
-
 .reset     0    003fffc0    00000002     DSECT
                   003fffc0    00000002     rts2800_fpu32.lib : boot.obj (.reset)
 
-.bss       1    00000000    00000000     UNINITIALIZED
-
-.esysmem   1    00000400    00000000     UNINITIALIZED
-
 .stack     1    00000400    000003e8     UNINITIALIZED
+                  00000400    000003e8     --HOLE--
 
 DevEmuRegsFile 
 *          1    00000880    000000d0     UNINITIALIZED
@@ -355,20 +335,19 @@ I2caRegsFile
 .ebss      1    0000c000    0000052b     UNINITIALIZED
                   0000c000    0000049a     main.obj (.ebss)
                   0000c49a    00000018     DSP2833x_CpuTimers.obj (.ebss)
-                  0000c4b2    00000004     rts2800_fpu32.lib : exit.obj (.ebss)
-                  0000c4b6    00000004                       : _lock.obj (.ebss)
-                  0000c4ba    00000004     ff.obj (.ebss)
+                  0000c4b2    00000004     ff.obj (.ebss)
+                  0000c4b6    00000004     rts2800_fpu32.lib : _lock.obj (.ebss)
+                  0000c4ba    00000004                       : exit.obj (.ebss)
                   0000c4be    00000001     diskio.obj (.ebss)
+                  0000c4bf    00000001     --HOLE--
                   0000c4c0    0000003a     disk_sd.obj (.ebss)
+                  0000c4fa    00000006     --HOLE--
                   0000c500    0000002b     SD_SPI_Initialization.obj (.ebss)
 
 .econst    1    0000c52c    0000011c     
                   0000c52c    00000100     DSP2833x_PieVect.obj (.econst)
-                  0000c62c    0000000f     ff.obj (.econst)
-                  0000c63b    0000000d     main.obj (.econst:_$P$T0$1)
-
-ZONE7DATA 
-*          1    0020fc00    00000000     UNINITIALIZED
+                  0000c62c    0000000f     ff.obj (.econst:.string)
+                  0000c63b    0000000d     main.obj (.econst:.string:_$P$T0$1)
 
 CsmPwlFile 
 *          1    0033fff8    00000008     UNINITIALIZED
@@ -379,14 +358,12 @@ GLOBAL SYMBOLS: SORTED ALPHABETICALLY BY Name
 
 address    name
 --------   ----
-00000000   .bss
-00000000   .data
 00008000   .text
-00008046   C$$EXIT
-000082e1   _ADCINT_ISR
+0000a0e7   C$$EXIT
+00009541   _ADCINT_ISR
 00000b00   _AdcMirror
 00007100   _AdcRegs
-000081c0   _ConfigCpuTimer
+00009e8f   _ConfigCpuTimer
 0000c4aa   _CpuTimer0
 00000c00   _CpuTimer0Regs
 0000c49a   _CpuTimer1
@@ -395,28 +372,28 @@ address    name
 00000c10   _CpuTimer2Regs
 0033fff8   _CsmPwl
 00000ae0   _CsmRegs
-00008651   _CsmUnlock
-0000820f   _DATALOG_ISR
-00008403   _DINTCH1_ISR
-0000840d   _DINTCH2_ISR
-00008417   _DINTCH3_ISR
-00008421   _DINTCH4_ISR
-0000842b   _DINTCH5_ISR
-00008435   _DINTCH6_ISR
-0000a16c   _DSP28x_usDelay
+00009a88   _CsmUnlock
+0000946f   _DATALOG_ISR
+00009663   _DINTCH1_ISR
+0000966d   _DINTCH2_ISR
+00009677   _DINTCH3_ISR
+00009681   _DINTCH4_ISR
+0000968b   _DINTCH5_ISR
+00009695   _DINTCH6_ISR
+0000a16e   _DSP28x_usDelay
 00000880   _DevEmuRegs
-000085a5   _DisableDog
+000099de   _DisableDog
 00001000   _DmaRegs
-0000848f   _ECAN0INTA_ISR
-000084a3   _ECAN0INTB_ISR
-00008499   _ECAN1INTA_ISR
-000084ad   _ECAN1INTB_ISR
-00008377   _ECAP1_INT_ISR
-00008381   _ECAP2_INT_ISR
-0000838b   _ECAP3_INT_ISR
-00008395   _ECAP4_INT_ISR
-0000839f   _ECAP5_INT_ISR
-000083a9   _ECAP6_INT_ISR
+000096ef   _ECAN0INTA_ISR
+00009703   _ECAN0INTB_ISR
+000096f9   _ECAN1INTA_ISR
+0000970d   _ECAN1INTB_ISR
+000095d7   _ECAP1_INT_ISR
+000095e1   _ECAP2_INT_ISR
+000095eb   _ECAP3_INT_ISR
+000095f5   _ECAP4_INT_ISR
+000095ff   _ECAP5_INT_ISR
+00009609   _ECAP6_INT_ISR
 00006040   _ECanaLAMRegs
 000060c0   _ECanaMOTORegs
 00006080   _ECanaMOTSRegs
@@ -433,209 +410,202 @@ address    name
 00006a60   _ECap4Regs
 00006a80   _ECap5Regs
 00006aa0   _ECap6Regs
-000084fd   _EMPTY_ISR
-00008223   _EMUINT_ISR
-0000833b   _EPWM1_INT_ISR
-000082ff   _EPWM1_TZINT_ISR
-00008345   _EPWM2_INT_ISR
-00008309   _EPWM2_TZINT_ISR
-0000834f   _EPWM3_INT_ISR
-00008313   _EPWM3_TZINT_ISR
-00008359   _EPWM4_INT_ISR
-0000831d   _EPWM4_TZINT_ISR
-00008363   _EPWM5_INT_ISR
-00008327   _EPWM5_TZINT_ISR
-0000836d   _EPWM6_INT_ISR
-00008331   _EPWM6_TZINT_ISR
+0000975d   _EMPTY_ISR
+00009483   _EMUINT_ISR
+0000959b   _EPWM1_INT_ISR
+0000955f   _EPWM1_TZINT_ISR
+000095a5   _EPWM2_INT_ISR
+00009569   _EPWM2_TZINT_ISR
+000095af   _EPWM3_INT_ISR
+00009573   _EPWM3_TZINT_ISR
+000095b9   _EPWM4_INT_ISR
+0000957d   _EPWM4_TZINT_ISR
+000095c3   _EPWM5_INT_ISR
+00009587   _EPWM5_TZINT_ISR
+000095cd   _EPWM6_INT_ISR
+00009591   _EPWM6_TZINT_ISR
 00006800   _EPwm1Regs
 00006840   _EPwm2Regs
 00006880   _EPwm3Regs
 000068c0   _EPwm4Regs
 00006900   _EPwm5Regs
 00006940   _EPwm6Regs
-000083b3   _EQEP1_INT_ISR
-000083bd   _EQEP2_INT_ISR
+00009613   _EQEP1_INT_ISR
+0000961d   _EQEP2_INT_ISR
 00006b00   _EQep1Regs
 00006b40   _EQep2Regs
-0000853d   _EnableInterrupts
+0000a084   _EnableInterrupts
 00000a80   _FlashRegs
 00006f80   _GpioCtrlRegs
 00006fc0   _GpioDataRegs
 00006fe0   _GpioIntRegs
-0000843f   _I2CINT1A_ISR
-00008449   _I2CINT2A_ISR
+0000969f   _I2CINT1A_ISR
+000096a9   _I2CINT2A_ISR
 00007900   _I2caRegs
-00008237   _ILLEGAL_ISR
-000081fb   _INT13_ISR
-00008205   _INT14_ISR
-00008181   _InitCpuTimers
-0000a151   _InitFlash
-000085fb   _InitPeripheralClocks
-0000851e   _InitPieCtrl
-00008546   _InitPieVectTable
-000085ad   _InitPll
-00008566   _InitSpi
-00008567   _InitSpiGpio
-0000856a   _InitSpiaGpio
-00008592   _InitSysCtrl
-00008682   _InitXintf
-0000871e   _InitXintf16Gpio
-000086d7   _InitXintf32Gpio
-000084f3   _LUF_ISR
-000084e9   _LVF_ISR
-000083ef   _MRINTA_ISR
-000083db   _MRINTB_ISR
-000083f9   _MXINTA_ISR
-000083e5   _MXINTB_ISR
+00009497   _ILLEGAL_ISR
+0000945b   _INT13_ISR
+00009465   _INT14_ISR
+00009e4e   _InitCpuTimers
+0000a153   _InitFlash
+00009a32   _InitPeripheralClocks
+0000a065   _InitPieCtrl
+0000a0ae   _InitPieVectTable
+000099e6   _InitPll
+0000a039   _InitSpi
+0000a03a   _InitSpiGpio
+0000a03d   _InitSpiaGpio
+000099cb   _InitSysCtrl
+000098d5   _InitXintf
+00009971   _InitXintf16Gpio
+0000992a   _InitXintf32Gpio
+00009753   _LUF_ISR
+00009749   _LVF_ISR
+0000964f   _MRINTA_ISR
+0000963b   _MRINTB_ISR
+00009659   _MXINTA_ISR
+00009645   _MXINTB_ISR
 00005000   _McbspaRegs
 00005040   _McbspbRegs
-0000822d   _NMI_ISR
-0000850a   _PIE_RESERVED
+0000948d   _NMI_ISR
+0000976a   _PIE_RESERVED
 00000ce0   _PieCtrlRegs
 00000d00   _PieVectTable
 0000c52c   _PieVectTableInit
-00008219   _RTOSINT_ISR
-00008467   _SCIRXINTA_ISR
-0000847b   _SCIRXINTB_ISR
-00008453   _SCIRXINTC_ISR
-00008471   _SCITXINTA_ISR
-00008485   _SCITXINTB_ISR
-0000845d   _SCITXINTC_ISR
+00009479   _RTOSINT_ISR
+000096c7   _SCIRXINTA_ISR
+000096db   _SCIRXINTB_ISR
+000096b3   _SCIRXINTC_ISR
+000096d1   _SCITXINTA_ISR
+000096e5   _SCITXINTB_ISR
+000096bd   _SCITXINTC_ISR
 0000c4c0   _SDCardInfo
-0000807c   _SD_Init
-00008092   _SD_ReadBlock
-000080a9   _SD_ReadMultiBlocks
+00009eca   _SD_Init
+00009ee0   _SD_ReadBlock
+00009ef7   _SD_ReadMultiBlocks
 0000c4be   _SD_Stat
-000080c1   _SD_WriteBlock
-000080d8   _SD_WriteMultiBlocks
-000082b9   _SEQ1INT_ISR
-000082c3   _SEQ2INT_ISR
-000083c7   _SPIRXINTA_ISR
-000083d1   _SPITXINTA_ISR
+00009f0f   _SD_WriteBlock
+00009f26   _SD_WriteMultiBlocks
+00009519   _SEQ1INT_ISR
+00009523   _SEQ2INT_ISR
+00009627   _SPIRXINTA_ISR
+00009631   _SPITXINTA_ISR
 00007050   _SciaRegs
 00007750   _ScibRegs
 00007770   _ScicRegs
-0000859b   _ServiceDog
+000099d4   _ServiceDog
 00007040   _SpiaRegs
 00007010   _SysCtrlRegs
-000082eb   _TINT0_ISR
-0000829b   _USER10_ISR
-000082a5   _USER11_ISR
-000082af   _USER12_ISR
-00008241   _USER1_ISR
-0000824b   _USER2_ISR
-00008255   _USER3_ISR
-0000825f   _USER4_ISR
-00008269   _USER5_ISR
-00008273   _USER6_ISR
-0000827d   _USER7_ISR
-00008287   _USER8_ISR
-00008291   _USER9_ISR
-000082f5   _WAKEINT_ISR
-000082cd   _XINT1_ISR
-000082d7   _XINT2_ISR
-000084b7   _XINT3_ISR
-000084c1   _XINT4_ISR
-000084cb   _XINT5_ISR
-000084d5   _XINT6_ISR
-000084df   _XINT7_ISR
+0000954b   _TINT0_ISR
+000094fb   _USER10_ISR
+00009505   _USER11_ISR
+0000950f   _USER12_ISR
+000094a1   _USER1_ISR
+000094ab   _USER2_ISR
+000094b5   _USER3_ISR
+000094bf   _USER4_ISR
+000094c9   _USER5_ISR
+000094d3   _USER6_ISR
+000094dd   _USER7_ISR
+000094e7   _USER8_ISR
+000094f1   _USER9_ISR
+00009555   _WAKEINT_ISR
+0000952d   _XINT1_ISR
+00009537   _XINT2_ISR
+00009717   _XINT3_ISR
+00009721   _XINT4_ISR
+0000972b   _XINT5_ISR
+00009735   _XINT6_ISR
+0000973f   _XINT7_ISR
 00007070   _XIntruptRegs
 00000b20   _XintfRegs
+000007e8   __STACK_END
 000003e8   __STACK_SIZE
-ffffffff   ___TI_pprof_out_hndl
-ffffffff   ___TI_prof_var_size
-ffffffff   ___TI_prof_var_start
+00000001   __TI_args_main
 ffffffff   ___binit__
-00000000   ___bss__
 ffffffff   ___c_args__
-0000a102   ___cinit__
-00000000   ___data__
-00000000   ___edata__
-00000000   ___end__
-0000a102   ___etext__
-0000a0e1   ___memcpy_ff
+0000a111   ___cinit__
+0000a111   ___etext__
+0000a08d   ___memcpy_ff
 ffffffff   ___pinit__
 00008000   ___text__
-00008067   __args_main
-0000c4b2   __cleanup_ptr
-0000c4b4   __dtors_ptr
+0000a0ce   __args_main
+0000c4ba   __cleanup_ptr
+0000c4bc   __dtors_ptr
 0000c4b8   __lock
-00008066   __nop
-00008062   __register_lock
-0000805e   __register_unlock
+0000a108   __nop
+0000a104   __register_lock
+0000a100   __register_unlock
 00000400   __stack
 0000c4b6   __unlock
-00008046   _abort
+0000a0e7   _abort
 0000c001   _br
-00008000   _c_int00
+00009ff3   _c_int00
 0000c504   _card_status
 0000c51b   _cid_contents
-000088c9   _clust2sect
+0000814f   _clust2sect
 0000c503   _crc_enabled
 0000c50b   _csd_contents
 0000c501   _data_manipulation
-000080f0   _disk_initialize
-0000814e   _disk_ioctl
-00008119   _disk_read
-0000810c   _disk_status
-00008135   _disk_write
-00008048   _exit
-00009aa3   _f_chmod
-0000961d   _f_close
-000097fd   _f_getfree
-0000962b   _f_lseek
-0000999a   _f_mkdir
-0000921a   _f_mount
-0000923c   _f_open
-0000974c   _f_opendir
-0000934c   _f_read
-0000979f   _f_readdir
-00009b18   _f_rename
-000097d8   _f_stat
-0000958d   _f_sync
-000098b8   _f_truncate
-00009922   _f_unlink
-00009ad9   _f_utime
-0000945b   _f_write
+00009dc5   _disk_initialize
+00009e23   _disk_ioctl
+00009dee   _disk_read
+00009de1   _disk_status
+00009e0a   _disk_write
+0000a0e9   _exit
+0000932e   _f_chmod
+00008e9e   _f_close
+00009089   _f_getfree
+00008eac   _f_lseek
+00009227   _f_mkdir
+00008a92   _f_mount
+00008ab4   _f_open
+00008fd6   _f_opendir
+00008bc4   _f_read
+0000902b   _f_readdir
+000093a4   _f_rename
+00009064   _f_stat
+00008e0b   _f_sync
+00009144   _f_truncate
+000091af   _f_unlink
+00009365   _f_utime
+00008cd4   _f_write
 0000c280   _fs
 0000c040   _fsrc
-000088e1   _get_fat
-00008176   _get_fattime
+00008167   _get_fat
+00009e4b   _get_fattime
 0000c502   _high_capacity
-00009bce   _main
+00009fa3   _main
 0000c506   _ocr_contents
-0000898a   _put_fat
+0000820c   _put_fat
 0000c000   _res
 0000c500   _response
-00008514   _rsvd_ISR
-00009c88   _sd_card_insertion
-00009ee4   _sd_cid_csd_response
-00009fce   _sd_command_response
-00009fa1   _sd_crc7
-00009e4f   _sd_data_response
-00009c16   _sd_erase_block
-00009fef   _sd_error
-00009c9b   _sd_initialization
-00009ecd   _sd_ocr_response
-00009dd2   _sd_read_block
-00009e02   _sd_read_multiple_block
-00009e9f   _sd_read_register
-00009f21   _sd_send_status
-00009cf2   _sd_version1_initialization
-00009d55   _sd_version2_initialization
-00009ff9   _sd_write_block
-0000a078   _sd_write_data
-0000a030   _sd_write_multiple_block
-00009c7b   _spi_initialization
-00009f52   _spi_xmit_byte
-00009f60   _spi_xmit_command
+00009774   _rsvd_ISR
+0000978b   _sd_card_insertion
+00009cb1   _sd_cid_csd_response
+00009d9a   _sd_command_response
+00009d6e   _sd_crc7
+00009c1d   _sd_data_response
+00009f3e   _sd_erase_block
+00009dbb   _sd_error
+0000979e   _sd_initialization
+00009c9a   _sd_ocr_response
+00009ba0   _sd_read_block
+00009bd0   _sd_read_multiple_block
+00009c6c   _sd_read_register
+00009cee   _sd_send_status
+000097f5   _sd_version1_initialization
+00009858   _sd_version2_initialization
+00009ab9   _sd_write_block
+00009b38   _sd_write_data
+00009af0   _sd_write_multiple_block
+0000977e   _spi_initialization
+00009d1f   _spi_xmit_byte
+00009d2d   _spi_xmit_command
 0000c002   _textFileBuffer
 ffffffff   binit
-0000a102   cinit
+0000a111   cinit
 00000000   code_start
-00000000   edata
-00000000   end
-0000a102   etext
+0000a111   etext
 ffffffff   pinit
 
 
@@ -643,17 +613,11 @@ GLOBAL SYMBOLS: SORTED BY Symbol Address
 
 address    name
 --------   ----
-00000000   .bss
-00000000   .data
-00000000   ___bss__
-00000000   ___data__
-00000000   ___edata__
-00000000   ___end__
 00000000   code_start
-00000000   edata
-00000000   end
+00000001   __TI_args_main
 000003e8   __STACK_SIZE
 00000400   __stack
+000007e8   __STACK_END
 00000880   _DevEmuRegs
 00000a80   _FlashRegs
 00000ae0   _CsmRegs
@@ -704,171 +668,171 @@ address    name
 00007900   _I2caRegs
 00008000   .text
 00008000   ___text__
-00008000   _c_int00
-00008046   C$$EXIT
-00008046   _abort
-00008048   _exit
-0000805e   __register_unlock
-00008062   __register_lock
-00008066   __nop
-00008067   __args_main
-0000807c   _SD_Init
-00008092   _SD_ReadBlock
-000080a9   _SD_ReadMultiBlocks
-000080c1   _SD_WriteBlock
-000080d8   _SD_WriteMultiBlocks
-000080f0   _disk_initialize
-0000810c   _disk_status
-00008119   _disk_read
-00008135   _disk_write
-0000814e   _disk_ioctl
-00008176   _get_fattime
-00008181   _InitCpuTimers
-000081c0   _ConfigCpuTimer
-000081fb   _INT13_ISR
-00008205   _INT14_ISR
-0000820f   _DATALOG_ISR
-00008219   _RTOSINT_ISR
-00008223   _EMUINT_ISR
-0000822d   _NMI_ISR
-00008237   _ILLEGAL_ISR
-00008241   _USER1_ISR
-0000824b   _USER2_ISR
-00008255   _USER3_ISR
-0000825f   _USER4_ISR
-00008269   _USER5_ISR
-00008273   _USER6_ISR
-0000827d   _USER7_ISR
-00008287   _USER8_ISR
-00008291   _USER9_ISR
-0000829b   _USER10_ISR
-000082a5   _USER11_ISR
-000082af   _USER12_ISR
-000082b9   _SEQ1INT_ISR
-000082c3   _SEQ2INT_ISR
-000082cd   _XINT1_ISR
-000082d7   _XINT2_ISR
-000082e1   _ADCINT_ISR
-000082eb   _TINT0_ISR
-000082f5   _WAKEINT_ISR
-000082ff   _EPWM1_TZINT_ISR
-00008309   _EPWM2_TZINT_ISR
-00008313   _EPWM3_TZINT_ISR
-0000831d   _EPWM4_TZINT_ISR
-00008327   _EPWM5_TZINT_ISR
-00008331   _EPWM6_TZINT_ISR
-0000833b   _EPWM1_INT_ISR
-00008345   _EPWM2_INT_ISR
-0000834f   _EPWM3_INT_ISR
-00008359   _EPWM4_INT_ISR
-00008363   _EPWM5_INT_ISR
-0000836d   _EPWM6_INT_ISR
-00008377   _ECAP1_INT_ISR
-00008381   _ECAP2_INT_ISR
-0000838b   _ECAP3_INT_ISR
-00008395   _ECAP4_INT_ISR
-0000839f   _ECAP5_INT_ISR
-000083a9   _ECAP6_INT_ISR
-000083b3   _EQEP1_INT_ISR
-000083bd   _EQEP2_INT_ISR
-000083c7   _SPIRXINTA_ISR
-000083d1   _SPITXINTA_ISR
-000083db   _MRINTB_ISR
-000083e5   _MXINTB_ISR
-000083ef   _MRINTA_ISR
-000083f9   _MXINTA_ISR
-00008403   _DINTCH1_ISR
-0000840d   _DINTCH2_ISR
-00008417   _DINTCH3_ISR
-00008421   _DINTCH4_ISR
-0000842b   _DINTCH5_ISR
-00008435   _DINTCH6_ISR
-0000843f   _I2CINT1A_ISR
-00008449   _I2CINT2A_ISR
-00008453   _SCIRXINTC_ISR
-0000845d   _SCITXINTC_ISR
-00008467   _SCIRXINTA_ISR
-00008471   _SCITXINTA_ISR
-0000847b   _SCIRXINTB_ISR
-00008485   _SCITXINTB_ISR
-0000848f   _ECAN0INTA_ISR
-00008499   _ECAN1INTA_ISR
-000084a3   _ECAN0INTB_ISR
-000084ad   _ECAN1INTB_ISR
-000084b7   _XINT3_ISR
-000084c1   _XINT4_ISR
-000084cb   _XINT5_ISR
-000084d5   _XINT6_ISR
-000084df   _XINT7_ISR
-000084e9   _LVF_ISR
-000084f3   _LUF_ISR
-000084fd   _EMPTY_ISR
-0000850a   _PIE_RESERVED
-00008514   _rsvd_ISR
-0000851e   _InitPieCtrl
-0000853d   _EnableInterrupts
-00008546   _InitPieVectTable
-00008566   _InitSpi
-00008567   _InitSpiGpio
-0000856a   _InitSpiaGpio
-00008592   _InitSysCtrl
-0000859b   _ServiceDog
-000085a5   _DisableDog
-000085ad   _InitPll
-000085fb   _InitPeripheralClocks
-00008651   _CsmUnlock
-00008682   _InitXintf
-000086d7   _InitXintf32Gpio
-0000871e   _InitXintf16Gpio
-000088c9   _clust2sect
-000088e1   _get_fat
-0000898a   _put_fat
-0000921a   _f_mount
-0000923c   _f_open
-0000934c   _f_read
-0000945b   _f_write
-0000958d   _f_sync
-0000961d   _f_close
-0000962b   _f_lseek
-0000974c   _f_opendir
-0000979f   _f_readdir
-000097d8   _f_stat
-000097fd   _f_getfree
-000098b8   _f_truncate
-00009922   _f_unlink
-0000999a   _f_mkdir
-00009aa3   _f_chmod
-00009ad9   _f_utime
-00009b18   _f_rename
-00009bce   _main
-00009c16   _sd_erase_block
-00009c7b   _spi_initialization
-00009c88   _sd_card_insertion
-00009c9b   _sd_initialization
-00009cf2   _sd_version1_initialization
-00009d55   _sd_version2_initialization
-00009dd2   _sd_read_block
-00009e02   _sd_read_multiple_block
-00009e4f   _sd_data_response
-00009e9f   _sd_read_register
-00009ecd   _sd_ocr_response
-00009ee4   _sd_cid_csd_response
-00009f21   _sd_send_status
-00009f52   _spi_xmit_byte
-00009f60   _spi_xmit_command
-00009fa1   _sd_crc7
-00009fce   _sd_command_response
-00009fef   _sd_error
-00009ff9   _sd_write_block
-0000a030   _sd_write_multiple_block
-0000a078   _sd_write_data
-0000a0e1   ___memcpy_ff
-0000a102   ___cinit__
-0000a102   ___etext__
-0000a102   cinit
-0000a102   etext
-0000a151   _InitFlash
-0000a16c   _DSP28x_usDelay
+0000814f   _clust2sect
+00008167   _get_fat
+0000820c   _put_fat
+00008a92   _f_mount
+00008ab4   _f_open
+00008bc4   _f_read
+00008cd4   _f_write
+00008e0b   _f_sync
+00008e9e   _f_close
+00008eac   _f_lseek
+00008fd6   _f_opendir
+0000902b   _f_readdir
+00009064   _f_stat
+00009089   _f_getfree
+00009144   _f_truncate
+000091af   _f_unlink
+00009227   _f_mkdir
+0000932e   _f_chmod
+00009365   _f_utime
+000093a4   _f_rename
+0000945b   _INT13_ISR
+00009465   _INT14_ISR
+0000946f   _DATALOG_ISR
+00009479   _RTOSINT_ISR
+00009483   _EMUINT_ISR
+0000948d   _NMI_ISR
+00009497   _ILLEGAL_ISR
+000094a1   _USER1_ISR
+000094ab   _USER2_ISR
+000094b5   _USER3_ISR
+000094bf   _USER4_ISR
+000094c9   _USER5_ISR
+000094d3   _USER6_ISR
+000094dd   _USER7_ISR
+000094e7   _USER8_ISR
+000094f1   _USER9_ISR
+000094fb   _USER10_ISR
+00009505   _USER11_ISR
+0000950f   _USER12_ISR
+00009519   _SEQ1INT_ISR
+00009523   _SEQ2INT_ISR
+0000952d   _XINT1_ISR
+00009537   _XINT2_ISR
+00009541   _ADCINT_ISR
+0000954b   _TINT0_ISR
+00009555   _WAKEINT_ISR
+0000955f   _EPWM1_TZINT_ISR
+00009569   _EPWM2_TZINT_ISR
+00009573   _EPWM3_TZINT_ISR
+0000957d   _EPWM4_TZINT_ISR
+00009587   _EPWM5_TZINT_ISR
+00009591   _EPWM6_TZINT_ISR
+0000959b   _EPWM1_INT_ISR
+000095a5   _EPWM2_INT_ISR
+000095af   _EPWM3_INT_ISR
+000095b9   _EPWM4_INT_ISR
+000095c3   _EPWM5_INT_ISR
+000095cd   _EPWM6_INT_ISR
+000095d7   _ECAP1_INT_ISR
+000095e1   _ECAP2_INT_ISR
+000095eb   _ECAP3_INT_ISR
+000095f5   _ECAP4_INT_ISR
+000095ff   _ECAP5_INT_ISR
+00009609   _ECAP6_INT_ISR
+00009613   _EQEP1_INT_ISR
+0000961d   _EQEP2_INT_ISR
+00009627   _SPIRXINTA_ISR
+00009631   _SPITXINTA_ISR
+0000963b   _MRINTB_ISR
+00009645   _MXINTB_ISR
+0000964f   _MRINTA_ISR
+00009659   _MXINTA_ISR
+00009663   _DINTCH1_ISR
+0000966d   _DINTCH2_ISR
+00009677   _DINTCH3_ISR
+00009681   _DINTCH4_ISR
+0000968b   _DINTCH5_ISR
+00009695   _DINTCH6_ISR
+0000969f   _I2CINT1A_ISR
+000096a9   _I2CINT2A_ISR
+000096b3   _SCIRXINTC_ISR
+000096bd   _SCITXINTC_ISR
+000096c7   _SCIRXINTA_ISR
+000096d1   _SCITXINTA_ISR
+000096db   _SCIRXINTB_ISR
+000096e5   _SCITXINTB_ISR
+000096ef   _ECAN0INTA_ISR
+000096f9   _ECAN1INTA_ISR
+00009703   _ECAN0INTB_ISR
+0000970d   _ECAN1INTB_ISR
+00009717   _XINT3_ISR
+00009721   _XINT4_ISR
+0000972b   _XINT5_ISR
+00009735   _XINT6_ISR
+0000973f   _XINT7_ISR
+00009749   _LVF_ISR
+00009753   _LUF_ISR
+0000975d   _EMPTY_ISR
+0000976a   _PIE_RESERVED
+00009774   _rsvd_ISR
+0000977e   _spi_initialization
+0000978b   _sd_card_insertion
+0000979e   _sd_initialization
+000097f5   _sd_version1_initialization
+00009858   _sd_version2_initialization
+000098d5   _InitXintf
+0000992a   _InitXintf32Gpio
+00009971   _InitXintf16Gpio
+000099cb   _InitSysCtrl
+000099d4   _ServiceDog
+000099de   _DisableDog
+000099e6   _InitPll
+00009a32   _InitPeripheralClocks
+00009a88   _CsmUnlock
+00009ab9   _sd_write_block
+00009af0   _sd_write_multiple_block
+00009b38   _sd_write_data
+00009ba0   _sd_read_block
+00009bd0   _sd_read_multiple_block
+00009c1d   _sd_data_response
+00009c6c   _sd_read_register
+00009c9a   _sd_ocr_response
+00009cb1   _sd_cid_csd_response
+00009cee   _sd_send_status
+00009d1f   _spi_xmit_byte
+00009d2d   _spi_xmit_command
+00009d6e   _sd_crc7
+00009d9a   _sd_command_response
+00009dbb   _sd_error
+00009dc5   _disk_initialize
+00009de1   _disk_status
+00009dee   _disk_read
+00009e0a   _disk_write
+00009e23   _disk_ioctl
+00009e4b   _get_fattime
+00009e4e   _InitCpuTimers
+00009e8f   _ConfigCpuTimer
+00009eca   _SD_Init
+00009ee0   _SD_ReadBlock
+00009ef7   _SD_ReadMultiBlocks
+00009f0f   _SD_WriteBlock
+00009f26   _SD_WriteMultiBlocks
+00009f3e   _sd_erase_block
+00009fa3   _main
+00009ff3   _c_int00
+0000a039   _InitSpi
+0000a03a   _InitSpiGpio
+0000a03d   _InitSpiaGpio
+0000a065   _InitPieCtrl
+0000a084   _EnableInterrupts
+0000a08d   ___memcpy_ff
+0000a0ae   _InitPieVectTable
+0000a0ce   __args_main
+0000a0e7   C$$EXIT
+0000a0e7   _abort
+0000a0e9   _exit
+0000a100   __register_unlock
+0000a104   __register_lock
+0000a108   __nop
+0000a111   ___cinit__
+0000a111   ___etext__
+0000a111   cinit
+0000a111   etext
+0000a153   _InitFlash
+0000a16e   _DSP28x_usDelay
 0000c000   _res
 0000c001   _br
 0000c002   _textFileBuffer
@@ -877,10 +841,10 @@ address    name
 0000c49a   _CpuTimer1
 0000c4a2   _CpuTimer2
 0000c4aa   _CpuTimer0
-0000c4b2   __cleanup_ptr
-0000c4b4   __dtors_ptr
 0000c4b6   __unlock
 0000c4b8   __lock
+0000c4ba   __cleanup_ptr
+0000c4bc   __dtors_ptr
 0000c4be   _SD_Stat
 0000c4c0   _SDCardInfo
 0000c500   _response
@@ -893,13 +857,10 @@ address    name
 0000c51b   _cid_contents
 0000c52c   _PieVectTableInit
 0033fff8   _CsmPwl
-ffffffff   ___TI_pprof_out_hndl
-ffffffff   ___TI_prof_var_size
-ffffffff   ___TI_prof_var_start
 ffffffff   ___binit__
 ffffffff   ___c_args__
 ffffffff   ___pinit__
 ffffffff   binit
 ffffffff   pinit
 
-[258 symbols]
+[249 symbols]

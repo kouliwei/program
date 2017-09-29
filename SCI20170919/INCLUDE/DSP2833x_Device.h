@@ -19,7 +19,7 @@
 extern "C" {
 #endif
 
-
+#define     __IO    volatile
 #define   TARGET   1
 //---------------------------------------------------------------------------
 // User To Select Target Device:
@@ -89,6 +89,7 @@ extern cregister volatile unsigned int IER;
 #define DSP28_DATA_TYPES
 typedef int             int16;
 typedef long            int32;
+typedef unsigned char   Uint8;
 typedef unsigned int    Uint16;
 typedef unsigned long   Uint32;
 typedef float           float32;

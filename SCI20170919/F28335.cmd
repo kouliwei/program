@@ -76,9 +76,9 @@ PAGE 0:    /* Program Memory */
 
    ZONE0       : origin = 0x004000, length = 0x001000     /* XINTF zone 0 */
    RAML0       : origin = 0x008000, length = 0x001000     /* on-chip RAM block L0 */
-   RAML1       : origin = 0x009000, length = 0x001000     /* on-chip RAM block L1 */
-   RAML2       : origin = 0x00A000, length = 0x001000     /* on-chip RAM block L2 */
-   RAML3       : origin = 0x00B000, length = 0x001000     /* on-chip RAM block L3 */
+   RAML1       : origin = 0x009000, length = 0x004000     /* on-chip RAM block L1 */
+//   RAML2       : origin = 0x00A000, length = 0x001000     /* on-chip RAM block L2 */
+//   RAML3       : origin = 0x00B000, length = 0x001000     /* on-chip RAM block L3 */
    ZONE6A      : origin = 0x100000, length = 0x00FC00    /* XINTF zone 6 - program space*/ 
    ZONE7       : origin = 0x200000, length = 0x100000    /* XINTF zone 7  */ 
    FLASHH      : origin = 0x300000, length = 0x008000     /* on-chip FLASH */
@@ -108,8 +108,8 @@ PAGE 1 :   /* Data Memory */
    BOOT_RSVD   : origin = 0x000000, length = 0x000050     /* Part of M0, BOOT rom will use this for stack */
    RAMM0       : origin = 0x000050, length = 0x0003B0     /* on-chip RAM block M0 */
    RAMM1       : origin = 0x000400, length = 0x000400     /* on-chip RAM block M1 */
-   RAML4       : origin = 0x00C000, length = 0x001500
-   RAML5       : origin = 0x00D500, length = 0x000b00
+   RAML4       : origin = 0x00D000, length = 0x000800
+   RAML5       : origin = 0x00D800, length = 0x000800
    RAML6       : origin = 0x00E000, length = 0x001000     /* on-chip RAM block L1 */
    RAML7       : origin = 0x00F000, length = 0x001000     /* on-chip RAM block L1 */
    ZONE6B      : origin = 0x10FC00, length = 0x000400     /* XINTF zone 6 - data space */
@@ -143,7 +143,7 @@ SECTIONS
    
    /* Allocate uninitalized data sections: */
    .stack              : > RAMM1       PAGE = 1
-   .ebss               : > RAML4       PAGE = 1
+   .ebss               : > RAML1       PAGE = 0
    .esysmem            : > RAMM1       PAGE = 1
 
    /* Initalized sections go in Flash */

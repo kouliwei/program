@@ -10,6 +10,8 @@ extern "C" {
 typedef unsigned char uint8_t;
 typedef signed char   int8_t;
 
+
+
 typedef struct{
 	int8_t data[11];
 	int data1[3];
@@ -68,6 +70,20 @@ typedef struct{
 #include "USER_SPI.h"
 #include "USER_Sliding.h"
 #include "USER_ADC.h"
+
+
+/********sd卡相关*****************/
+#include "SD.h"
+#include "sdio_sd.h"
+#include "ff.h"
+
+extern FATFS fs;         /* Work area (file system object) for logical drive */
+extern FIL fsrc;         /* file objects */
+extern FRESULT res;
+extern UINT br;
+extern Uint8 textFileBuffer[];
+extern char m[]; //sd卡的文件名称
+extern FRESULT h;
 
 
 extern uint8_t  Buff_Real[20];

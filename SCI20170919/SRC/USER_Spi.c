@@ -29,5 +29,13 @@ void USER_SPI_Init(void)
 
 }
 
+void SD_Ready(void)
+{
+    res = f_unlink(m);//删除SD卡内同名文件
+	h=f_mount(0,&fs);
+	if(h!=FR_OK)  asm(" ESTOP0"); //文件注册失败，程序暂停
+
+	res = f_open( &fsrc , m , FA_CREATE_ALWAYS | FA_WRITE);//FA_CREATE_NEW | FA_WRITE);
+}
 
 

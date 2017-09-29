@@ -21,6 +21,12 @@ C_SRCS += \
 ../SRC/DSP2833x_SysCtrl.c \
 ../SRC/DSP2833x_Xintf.c \
 ../SRC/SCI.c \
+../SRC/SD_SPI_Erase.c \
+../SRC/SD_SPI_Initialization.c \
+../SRC/SD_SPI_Read.c \
+../SRC/SD_SPI_Registers.c \
+../SRC/SD_SPI_Transmission.c \
+../SRC/SD_SPI_Write.c \
 ../SRC/USER_ADC.c \
 ../SRC/USER_Common.c \
 ../SRC/USER_Distance.c \
@@ -29,7 +35,10 @@ C_SRCS += \
 ../SRC/USER_Sci.c \
 ../SRC/USER_Sensor.c \
 ../SRC/USER_Sliding.c \
-../SRC/USER_Spi.c 
+../SRC/USER_Spi.c \
+../SRC/disk_sd.c \
+../SRC/diskio.c \
+../SRC/ff.c 
 
 OBJS += \
 ./SRC/DSP2833x_ADC_cal.obj \
@@ -47,6 +56,12 @@ OBJS += \
 ./SRC/DSP2833x_Xintf.obj \
 ./SRC/DSP2833x_usDelay.obj \
 ./SRC/SCI.obj \
+./SRC/SD_SPI_Erase.obj \
+./SRC/SD_SPI_Initialization.obj \
+./SRC/SD_SPI_Read.obj \
+./SRC/SD_SPI_Registers.obj \
+./SRC/SD_SPI_Transmission.obj \
+./SRC/SD_SPI_Write.obj \
 ./SRC/USER_ADC.obj \
 ./SRC/USER_Common.obj \
 ./SRC/USER_Distance.obj \
@@ -55,7 +70,10 @@ OBJS += \
 ./SRC/USER_Sci.obj \
 ./SRC/USER_Sensor.obj \
 ./SRC/USER_Sliding.obj \
-./SRC/USER_Spi.obj 
+./SRC/USER_Spi.obj \
+./SRC/disk_sd.obj \
+./SRC/diskio.obj \
+./SRC/ff.obj 
 
 ASM_DEPS += \
 ./SRC/DSP2833x_ADC_cal.pp \
@@ -75,6 +93,12 @@ C_DEPS += \
 ./SRC/DSP2833x_SysCtrl.pp \
 ./SRC/DSP2833x_Xintf.pp \
 ./SRC/SCI.pp \
+./SRC/SD_SPI_Erase.pp \
+./SRC/SD_SPI_Initialization.pp \
+./SRC/SD_SPI_Read.pp \
+./SRC/SD_SPI_Registers.pp \
+./SRC/SD_SPI_Transmission.pp \
+./SRC/SD_SPI_Write.pp \
 ./SRC/USER_ADC.pp \
 ./SRC/USER_Common.pp \
 ./SRC/USER_Distance.pp \
@@ -83,7 +107,10 @@ C_DEPS += \
 ./SRC/USER_Sci.pp \
 ./SRC/USER_Sensor.pp \
 ./SRC/USER_Sliding.pp \
-./SRC/USER_Spi.pp 
+./SRC/USER_Spi.pp \
+./SRC/disk_sd.pp \
+./SRC/diskio.pp \
+./SRC/ff.pp 
 
 C_DEPS__QUOTED += \
 "SRC\DSP2833x_Adc.pp" \
@@ -98,6 +125,12 @@ C_DEPS__QUOTED += \
 "SRC\DSP2833x_SysCtrl.pp" \
 "SRC\DSP2833x_Xintf.pp" \
 "SRC\SCI.pp" \
+"SRC\SD_SPI_Erase.pp" \
+"SRC\SD_SPI_Initialization.pp" \
+"SRC\SD_SPI_Read.pp" \
+"SRC\SD_SPI_Registers.pp" \
+"SRC\SD_SPI_Transmission.pp" \
+"SRC\SD_SPI_Write.pp" \
 "SRC\USER_ADC.pp" \
 "SRC\USER_Common.pp" \
 "SRC\USER_Distance.pp" \
@@ -106,7 +139,10 @@ C_DEPS__QUOTED += \
 "SRC\USER_Sci.pp" \
 "SRC\USER_Sensor.pp" \
 "SRC\USER_Sliding.pp" \
-"SRC\USER_Spi.pp" 
+"SRC\USER_Spi.pp" \
+"SRC\disk_sd.pp" \
+"SRC\diskio.pp" \
+"SRC\ff.pp" 
 
 OBJS__QUOTED += \
 "SRC\DSP2833x_ADC_cal.obj" \
@@ -124,6 +160,12 @@ OBJS__QUOTED += \
 "SRC\DSP2833x_Xintf.obj" \
 "SRC\DSP2833x_usDelay.obj" \
 "SRC\SCI.obj" \
+"SRC\SD_SPI_Erase.obj" \
+"SRC\SD_SPI_Initialization.obj" \
+"SRC\SD_SPI_Read.obj" \
+"SRC\SD_SPI_Registers.obj" \
+"SRC\SD_SPI_Transmission.obj" \
+"SRC\SD_SPI_Write.obj" \
 "SRC\USER_ADC.obj" \
 "SRC\USER_Common.obj" \
 "SRC\USER_Distance.obj" \
@@ -132,7 +174,10 @@ OBJS__QUOTED += \
 "SRC\USER_Sci.obj" \
 "SRC\USER_Sensor.obj" \
 "SRC\USER_Sliding.obj" \
-"SRC\USER_Spi.obj" 
+"SRC\USER_Spi.obj" \
+"SRC\disk_sd.obj" \
+"SRC\diskio.obj" \
+"SRC\ff.obj" 
 
 ASM_DEPS__QUOTED += \
 "SRC\DSP2833x_ADC_cal.pp" \
@@ -157,6 +202,12 @@ C_SRCS__QUOTED += \
 "../SRC/DSP2833x_SysCtrl.c" \
 "../SRC/DSP2833x_Xintf.c" \
 "../SRC/SCI.c" \
+"../SRC/SD_SPI_Erase.c" \
+"../SRC/SD_SPI_Initialization.c" \
+"../SRC/SD_SPI_Read.c" \
+"../SRC/SD_SPI_Registers.c" \
+"../SRC/SD_SPI_Transmission.c" \
+"../SRC/SD_SPI_Write.c" \
 "../SRC/USER_ADC.c" \
 "../SRC/USER_Common.c" \
 "../SRC/USER_Distance.c" \
@@ -165,6 +216,9 @@ C_SRCS__QUOTED += \
 "../SRC/USER_Sci.c" \
 "../SRC/USER_Sensor.c" \
 "../SRC/USER_Sliding.c" \
-"../SRC/USER_Spi.c" 
+"../SRC/USER_Spi.c" \
+"../SRC/disk_sd.c" \
+"../SRC/diskio.c" \
+"../SRC/ff.c" 
 
 

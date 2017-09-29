@@ -33,6 +33,7 @@ extern "C" {
 
 void USER_SPIInit(void);
 void USER_SPI_Init(void);
+void SD_Ready(void);
 
 
 #ifdef __cplusplus

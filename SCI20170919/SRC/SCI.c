@@ -8,6 +8,15 @@
 int     fputc(int _c, register FILE *_fp);
 #endif
 
+FATFS fs;         /* Work area (file system object) for logical drive */
+FIL fsrc;         /* file objects */
+FRESULT res=FR_OK;
+UINT br;
+Uint8 textFileBuffer[] = "欢迎来到浙江！^_^ \r\n";
+Uint8 textFileBuffer1[] = "欢迎来到浙大！^_^ \r\n";
+char m[]="0:/fatfs.txt"; //sd卡的文件名称
+FRESULT h;
+
 uint8_t Buff_Real[20] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 uint8_t Control_Time = 10;
 uint8_t	Buff_Total[200][20];
@@ -47,12 +56,14 @@ int sum(int cnt,...){
 
 void main(void)
 {
+	Uint16 i= 0;
  	InitSysCtrl();
 	EALLOW;
 	SysCtrlRegs.HISPCP.all = ADC_MODCLK;	// HSPCLK = SYSCLKOUT/ADC_MODCLK
 	EDIS;
 	Gpio_Init();
 	Sci_Init();
+	spi_initialization();
 //	USER_SPIInit();
 	EPwm_Init();
 	IntTime_Config();
@@ -60,44 +71,60 @@ void main(void)
 	Para_Init();
 	StartCpuTimer0();
 	StartADCTrans();
-
-
-
-
-#if	DEBUG == 0
-
-#elif	DEBUG == 1
-	while(1)
+	SD_Ready();
+    if ( res == FR_OK )
     {
-
-
-		//Led_Drive(0x0C);
-//		if(index >= 10)
-//		{
-//			index = 0;
-//		}
-//		while(SpiaRegs.SPISTS.bit.INT_FLAG == SPI_RECEICEING);
-//		SPI_Rx_Buffer[index] = SpiaRegs.SPIRXBUF;
-//		while(SpiaRegs.SPISTS.bit.BUFFULL_FLAG == SPI_SENDING);  //正在发送中
-//		SpiaRegs.SPITXBUF = SPI_Tx_Buffer[index];
-//		index++;
-		Read_Voltage();
-		DataInter_AHRS();
-		DataInter_Pc();
-		if(AUV_State != 1)
-		{
-			Motion_Control();
-			if(AUV_State == 8 || AUV_State == 9)
-			{
-				MOTOR_TRAN();
-			}
-			else
-			{
-				Motor_Out();
-			}
-		}
+      /* Write buffer to file */
+    	for (i = 0;i < 65530;i++)
+      res = f_write(&fsrc, textFileBuffer, sizeof(textFileBuffer), &br);
+      /*close file */
+      f_close(&fsrc); //如果此句屏蔽则文件内容不会被写入SD卡
     }
-#endif
+    res = f_open( &fsrc , m , FA_OPEN_ALWAYS | FA_WRITE);
+    f_lseek(&fsrc,fsrc.fsize);
+    for (i = 0;i<65530;i++)
+    res = f_write(&fsrc, textFileBuffer1, sizeof(textFileBuffer1), &br);
+    f_close(&fsrc);
+    asm(" ESTOP0");
+
+
+
+
+
+//#if	DEBUG == 0
+//
+//#elif	DEBUG == 1
+//	while(1)
+//    {
+//
+//
+//		//Led_Drive(0x0C);
+////		if(index >= 10)
+////		{
+////			index = 0;
+////		}
+////		while(SpiaRegs.SPISTS.bit.INT_FLAG == SPI_RECEICEING);
+////		SPI_Rx_Buffer[index] = SpiaRegs.SPIRXBUF;
+////		while(SpiaRegs.SPISTS.bit.BUFFULL_FLAG == SPI_SENDING);  //正在发送中
+////		SpiaRegs.SPITXBUF = SPI_Tx_Buffer[index];
+////		index++;
+//		Read_Voltage();
+//		DataInter_AHRS();
+//		DataInter_Pc();
+//		if(AUV_State != 1)
+//		{
+//			Motion_Control();
+//			if(AUV_State == 8 || AUV_State == 9)
+//			{
+//				MOTOR_TRAN();
+//			}
+//			else
+//			{
+//				Motor_Out();
+//			}
+//		}
+//    }
+//#endif
 }
 
 

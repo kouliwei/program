@@ -10,31 +10,18 @@ static void Led_Gpio(void)
 {
 
 	EALLOW;
-	GpioCtrlRegs.GPBMUX2.bit.LED1_PORT = 0;
-	GpioCtrlRegs.GPBDIR.bit.LED1_PORT = 1;
-	GpioCtrlRegs.GPBMUX2.bit.LED2_PORT = 0;
-	GpioCtrlRegs.GPBDIR.bit.LED2_PORT = 1;
-	GpioCtrlRegs.GPBMUX2.bit.LED3_PORT = 0;
-	GpioCtrlRegs.GPBDIR.bit.LED3_PORT = 1;
-	GpioCtrlRegs.GPBMUX2.bit.LED4_PORT = 0;
-	GpioCtrlRegs.GPBDIR.bit.LED4_PORT = 1;
+	GpioCtrlRegs.GPAMUX1.bit.LED1_PORT = 0;
+	GpioCtrlRegs.GPADIR.bit.LED1_PORT = 1;
+	GpioCtrlRegs.GPAMUX1.bit.LED2_PORT = 0;
+	GpioCtrlRegs.GPADIR.bit.LED2_PORT = 1;
+	GpioCtrlRegs.GPAMUX1.bit.LED3_PORT = 0;
+	GpioCtrlRegs.GPADIR.bit.LED3_PORT = 1;
+	GpioCtrlRegs.GPAMUX1.bit.LED4_PORT = 0;
+	GpioCtrlRegs.GPADIR.bit.LED4_PORT = 1;
 	EDIS;
 }
 
-static void Key_Gpio(void)
-{
 
-	EALLOW;
-	GpioCtrlRegs.GPAMUX2.bit.KEY1_PORT = 0;
-	GpioCtrlRegs.GPADIR.bit.KEY1_PORT = 0;
-	GpioCtrlRegs.GPAMUX2.bit.KEY2_PORT = 0;
-	GpioCtrlRegs.GPADIR.bit.KEY2_PORT = 0;
-	GpioCtrlRegs.GPBMUX1.bit.KEY3_PORT = 0;
-	GpioCtrlRegs.GPBDIR.bit.KEY3_PORT = 0;
-	GpioCtrlRegs.GPBMUX1.bit.KEY4_PORT = 0;
-	GpioCtrlRegs.GPBDIR.bit.KEY4_PORT = 0;
-	EDIS;
-}
 
 
 
@@ -114,8 +101,8 @@ extern void IntTime_Config(void)
 	//StartCpuTimer0();
 	StopCpuTimer0();  //停止定时器工作
 
-//   MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);
-//   InitFlash();
+//	MemCopy(&RamfuncsLoadStart, &RamfuncsLoadEnd, &RamfuncsRunStart);
+//	InitFlash();
 
 	IER |= M_INT9;
 	IER |= M_INT1;
@@ -250,8 +237,9 @@ extern void Store_SensorData(void)
 extern void Gpio_Init(void)
 {
 	Led_Gpio();
-	Key_Gpio();
+//	Key_Gpio();
 	Sci_Gpio();
+	InitSpiaGpio();
 //	Sci_485Dir_Gpio();
 }
 

@@ -16,43 +16,25 @@ extern "C" {
 #include "DSPTotal.h"
 
 /**************************   LED  宏定义 **************************/
-#define LED1_PORT	GPIO51
-#define LED2_PORT	GPIO50
-#define LED3_PORT	GPIO49
-#define LED4_PORT	GPIO48
+#define LED1_PORT	GPIO10
+#define LED2_PORT	GPIO8
+#define LED3_PORT	GPIO7
+#define LED4_PORT	GPIO5
 
 
-#define LED1_On() 		GpioDataRegs.GPBCLEAR.bit.LED1_PORT = 1
-#define LED1_Off() 		GpioDataRegs.GPBSET.bit.LED1_PORT = 1
-#define LED1_Toggle() 	GpioDataRegs.GPBTOGGLE.bit.LED1_PORT = 1
-#define LED2_On() 		GpioDataRegs.GPBCLEAR.bit.LED2_PORT = 1
-#define LED2_Off() 		GpioDataRegs.GPBSET.bit.LED2_PORT = 1
-#define LED2_Toggle() 	GpioDataRegs.GPBTOGGLE.bit.LED2_PORT = 1
-#define LED3_On() 		GpioDataRegs.GPBCLEAR.bit.LED3_PORT = 1
-#define LED3_Off() 		GpioDataRegs.GPBSET.bit.LED3_PORT = 1
-#define LED3_Toggle() 	GpioDataRegs.GPBTOGGLE.bit.LED3_PORT = 1
-#define LED4_On() 		GpioDataRegs.GPBCLEAR.bit.LED4_PORT = 1
-#define LED4_Off() 		GpioDataRegs.GPBSET.bit.LED4_PORT = 1
-#define LED4_Toggle() 	GpioDataRegs.GPBTOGGLE.bit.LED4_PORT = 1
+#define LED1_On() 		GpioDataRegs.GPACLEAR.bit.LED1_PORT = 1
+#define LED1_Off() 		GpioDataRegs.GPASET.bit.LED1_PORT = 1
+#define LED1_Toggle() 	GpioDataRegs.GPATOGGLE.bit.LED1_PORT = 1
+#define LED2_On() 		GpioDataRegs.GPACLEAR.bit.LED2_PORT = 1
+#define LED2_Off() 		GpioDataRegs.GPASET.bit.LED2_PORT = 1
+#define LED2_Toggle() 	GpioDataRegs.GPATOGGLE.bit.LED2_PORT = 1
+#define LED3_On() 		GpioDataRegs.GPACLEAR.bit.LED3_PORT = 1
+#define LED3_Off() 		GpioDataRegs.GPASET.bit.LED3_PORT = 1
+#define LED3_Toggle() 	GpioDataRegs.GPATOGGLE.bit.LED3_PORT = 1
+#define LED4_On() 		GpioDataRegs.GPACLEAR.bit.LED4_PORT = 1
+#define LED4_Off() 		GpioDataRegs.GPASET.bit.LED4_PORT = 1
+#define LED4_Toggle() 	GpioDataRegs.GPATOGGLE.bit.LED4_PORT = 1
 
-
-/**************************   KEY  宏定义 **************************/
-#define KEY1_PORT	GPIO26
-#define KEY2_PORT	GPIO27
-#define KEY3_PORT	GPIO32
-#define KEY4_PORT	GPIO33
-
-#define EFF		0
-#define NONEFF	1
-
-#define EFF_KEY1()		GpioDataRegs.GPADAT.bit.KEY1_PORT == EFF
-#define NONEFF_KEY1()	GpioDataRegs.GPADAT.bit.KEY1_PORT == NONEFF
-#define EFF_KEY2()		GpioDataRegs.GPADAT.bit.KEY2_PORT == EFF
-#define NONEFF_KEY2()	GpioDataRegs.GPADAT.bit.KEY2_PORT == NONEFF
-#define EFF_KEY3()		GpioDataRegs.GPBDAT.bit.KEY3_PORT == EFF
-#define NONEFF_KEY3()	GpioDataRegs.GPBDAT.bit.KEY3_PORT == NONEFF
-#define EFF_KEY4()		GpioDataRegs.GPBDAT.bit.KEY4_PORT == EFF
-#define NONEFF_KEY4()	GpioDataRegs.GPBDAT.bit.KEY4_PORT == NONEFF
 
 
 
@@ -70,7 +52,6 @@ extern void Delay_Nms(Uint16 num);
 extern void IntTime_Config(void);
 #endif
 
-static void Key_Gpio(void);
 static void Led_Gpio(void);
 static void Sci_Gpio(void);
 static void Scia_Gpio(void);
