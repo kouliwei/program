@@ -70,6 +70,7 @@ typedef struct{
 #include "USER_SPI.h"
 #include "USER_Sliding.h"
 #include "USER_ADC.h"
+#include "USER_I2C.h"
 
 
 /********sdø®œ‡πÿ*****************/

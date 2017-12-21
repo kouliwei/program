@@ -45,6 +45,13 @@ SRC/DSP2833x_GlobalVariableDefs.obj: ../SRC/DSP2833x_GlobalVariableDefs.c $(GEN_
 	@echo 'Finished building: $<'
 	@echo ' '
 
+SRC/DSP2833x_I2C.obj: ../SRC/DSP2833x_I2C.c $(GEN_OPTS) $(GEN_SRCS)
+	@echo 'Building file: $<'
+	@echo 'Invoking: C2000 Compiler'
+	"C:/ti/ccsv5/tools/compiler/c2000_6.1.3/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -g --include_path="C:/ti/ccsv5/tools/compiler/c2000_6.1.3/include" --include_path="C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE" --diag_warning=225 --display_error_number --diag_wrap=off --preproc_with_compile --preproc_dependency="SRC/DSP2833x_I2C.pp" --obj_directory="SRC" $(GEN_OPTS__FLAG) "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
 SRC/DSP2833x_MemCopy.obj: ../SRC/DSP2833x_MemCopy.c $(GEN_OPTS) $(GEN_SRCS)
 	@echo 'Building file: $<'
 	@echo 'Invoking: C2000 Compiler'
@@ -168,6 +175,13 @@ SRC/USER_Distance.obj: ../SRC/USER_Distance.c $(GEN_OPTS) $(GEN_SRCS)
 	@echo 'Building file: $<'
 	@echo 'Invoking: C2000 Compiler'
 	"C:/ti/ccsv5/tools/compiler/c2000_6.1.3/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -g --include_path="C:/ti/ccsv5/tools/compiler/c2000_6.1.3/include" --include_path="C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE" --diag_warning=225 --display_error_number --diag_wrap=off --preproc_with_compile --preproc_dependency="SRC/USER_Distance.pp" --obj_directory="SRC" $(GEN_OPTS__FLAG) "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
+SRC/USER_I2C.obj: ../SRC/USER_I2C.c $(GEN_OPTS) $(GEN_SRCS)
+	@echo 'Building file: $<'
+	@echo 'Invoking: C2000 Compiler'
+	"C:/ti/ccsv5/tools/compiler/c2000_6.1.3/bin/cl2000" -v28 -ml -mt --float_support=fpu32 -g --include_path="C:/ti/ccsv5/tools/compiler/c2000_6.1.3/include" --include_path="C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE" --diag_warning=225 --display_error_number --diag_wrap=off --preproc_with_compile --preproc_dependency="SRC/USER_I2C.pp" --obj_directory="SRC" $(GEN_OPTS__FLAG) "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

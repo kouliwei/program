@@ -47,6 +47,7 @@ SRC/USER_Pwm.obj: C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/U
 SRC/USER_Pwm.obj: C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/USER_SPI.h
 SRC/USER_Pwm.obj: C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/USER_Sliding.h
 SRC/USER_Pwm.obj: C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/USER_ADC.h
+SRC/USER_Pwm.obj: C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/USER_I2C.h
 SRC/USER_Pwm.obj: C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/SD.h
 SRC/USER_Pwm.obj: C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/sdio_sd.h
 SRC/USER_Pwm.obj: C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/ff.h
@@ -100,6 +101,7 @@ C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/USER_Common.h:
 C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/USER_SPI.h: 
 C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/USER_Sliding.h: 
 C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/USER_ADC.h: 
+C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/USER_I2C.h: 
 C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/SD.h: 
 C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/sdio_sd.h: 
 C:/Users/koukou/Desktop/reposity/program/SCI20170919/INCLUDE/ff.h: 

@@ -1,6 +1,6 @@
 #include "DSPTotal.h"
 
-//#define UART_PRINTF
+#define UART_PRINTF
 
 
 #ifdef UART_PRINTF
@@ -64,28 +64,36 @@ void main(void)
 	Gpio_Init();
 	Sci_Init();
 	spi_initialization();
+	I2CA_Init();
 //	USER_SPIInit();
 	EPwm_Init();
 	IntTime_Config();
 	USER_ADC_Init();
 	Para_Init();
+//	Init_Ms5837();
+//	Ms5837_Read();
 	StartCpuTimer0();
-	StartADCTrans();
-	SD_Ready();
-    if ( res == FR_OK )
-    {
-      /* Write buffer to file */
-    	for (i = 0;i < 65530;i++)
-      res = f_write(&fsrc, textFileBuffer, sizeof(textFileBuffer), &br);
-      /*close file */
-      f_close(&fsrc); //如果此句屏蔽则文件内容不会被写入SD卡
-    }
-    res = f_open( &fsrc , m , FA_OPEN_ALWAYS | FA_WRITE);
-    f_lseek(&fsrc,fsrc.fsize);
-    for (i = 0;i<65530;i++)
-    res = f_write(&fsrc, textFileBuffer1, sizeof(textFileBuffer1), &br);
-    f_close(&fsrc);
-    asm(" ESTOP0");
+//	StartADCTrans();
+//	SD_Ready();
+//	while(1)
+//	{
+//		Ms5837_Read();
+//		Delay_Nms(2000);
+//	}
+//    if ( res == FR_OK )
+//    {
+//      /* Write buffer to file */
+//    	for (i = 0;i < 65530;i++)
+//      res = f_write(&fsrc, textFileBuffer, sizeof(textFileBuffer), &br);
+//      /*close file */
+//      f_close(&fsrc); //如果此句屏蔽则文件内容不会被写入SD卡
+//    }
+//    res = f_open( &fsrc , m , FA_OPEN_ALWAYS | FA_WRITE);
+//    f_lseek(&fsrc,fsrc.fsize);
+//    for (i = 0;i<65530;i++)
+//    res = f_write(&fsrc, textFileBuffer1, sizeof(textFileBuffer1), &br);
+//    f_close(&fsrc);
+//    asm(" ESTOP0");
 
 
 
@@ -94,23 +102,23 @@ void main(void)
 //#if	DEBUG == 0
 //
 //#elif	DEBUG == 1
-//	while(1)
-//    {
-//
-//
-//		//Led_Drive(0x0C);
-////		if(index >= 10)
-////		{
-////			index = 0;
-////		}
-////		while(SpiaRegs.SPISTS.bit.INT_FLAG == SPI_RECEICEING);
-////		SPI_Rx_Buffer[index] = SpiaRegs.SPIRXBUF;
-////		while(SpiaRegs.SPISTS.bit.BUFFULL_FLAG == SPI_SENDING);  //正在发送中
-////		SpiaRegs.SPITXBUF = SPI_Tx_Buffer[index];
-////		index++;
+	while(1)
+    {
+
+
+		//Led_Drive(0x0C);
+//		if(index >= 10)
+//		{
+//			index = 0;
+//		}
+//		while(SpiaRegs.SPISTS.bit.INT_FLAG == SPI_RECEICEING);
+//		SPI_Rx_Buffer[index] = SpiaRegs.SPIRXBUF;
+//		while(SpiaRegs.SPISTS.bit.BUFFULL_FLAG == SPI_SENDING);  //正在发送中
+//		SpiaRegs.SPITXBUF = SPI_Tx_Buffer[index];
+//		index++;
 //		Read_Voltage();
 //		DataInter_AHRS();
-//		DataInter_Pc();
+		DataInter_Pc();
 //		if(AUV_State != 1)
 //		{
 //			Motion_Control();
@@ -123,7 +131,7 @@ void main(void)
 //				Motor_Out();
 //			}
 //		}
-//    }
+    }
 //#endif
 }
 

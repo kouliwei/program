@@ -92,6 +92,7 @@ extern void IntTime_Config(void)
     PieVectTable.SCIRXINTB = &Uart_Rx;
 #endif
     PieVectTable.SCIRXINTC = &DistanceIstr;    //测距，SCIC接收中断
+    PieVectTable.I2CINT1A =  &I2c_int1a_isr;	//深度传感器
 
 
 	EDIS;
@@ -112,6 +113,7 @@ extern void IntTime_Config(void)
 	PieCtrlRegs.PIEIER9.bit.INTx3 = 1;    	//SCIB接收中断
 	PieCtrlRegs.PIEIER9.bit.INTx1 = 1;		//SCIA接收中断
 	PieCtrlRegs.PIEIER8.bit.INTx5 = 1;		//SCIC接收中断
+	PieCtrlRegs.PIEIER8.bit.INTx1 = 1;		//I2C中断
 
 	EINT;  //开启总中断
 }
@@ -240,6 +242,7 @@ extern void Gpio_Init(void)
 //	Key_Gpio();
 	Sci_Gpio();
 	InitSpiaGpio();
+	InitI2CGpio();
 //	Sci_485Dir_Gpio();
 }
 

@@ -13,6 +13,7 @@ C_SRCS += \
 ../SRC/DSP2833x_CpuTimers.c \
 ../SRC/DSP2833x_DefaultIsr.c \
 ../SRC/DSP2833x_GlobalVariableDefs.c \
+../SRC/DSP2833x_I2C.c \
 ../SRC/DSP2833x_MemCopy.c \
 ../SRC/DSP2833x_PieCtrl.c \
 ../SRC/DSP2833x_PieVect.c \
@@ -30,6 +31,7 @@ C_SRCS += \
 ../SRC/USER_ADC.c \
 ../SRC/USER_Common.c \
 ../SRC/USER_Distance.c \
+../SRC/USER_I2C.c \
 ../SRC/USER_Motion.c \
 ../SRC/USER_Pwm.c \
 ../SRC/USER_Sci.c \
@@ -47,6 +49,7 @@ OBJS += \
 ./SRC/DSP2833x_CpuTimers.obj \
 ./SRC/DSP2833x_DefaultIsr.obj \
 ./SRC/DSP2833x_GlobalVariableDefs.obj \
+./SRC/DSP2833x_I2C.obj \
 ./SRC/DSP2833x_MemCopy.obj \
 ./SRC/DSP2833x_PieCtrl.obj \
 ./SRC/DSP2833x_PieVect.obj \
@@ -65,6 +68,7 @@ OBJS += \
 ./SRC/USER_ADC.obj \
 ./SRC/USER_Common.obj \
 ./SRC/USER_Distance.obj \
+./SRC/USER_I2C.obj \
 ./SRC/USER_Motion.obj \
 ./SRC/USER_Pwm.obj \
 ./SRC/USER_Sci.obj \
@@ -85,6 +89,7 @@ C_DEPS += \
 ./SRC/DSP2833x_CpuTimers.pp \
 ./SRC/DSP2833x_DefaultIsr.pp \
 ./SRC/DSP2833x_GlobalVariableDefs.pp \
+./SRC/DSP2833x_I2C.pp \
 ./SRC/DSP2833x_MemCopy.pp \
 ./SRC/DSP2833x_PieCtrl.pp \
 ./SRC/DSP2833x_PieVect.pp \
@@ -102,6 +107,7 @@ C_DEPS += \
 ./SRC/USER_ADC.pp \
 ./SRC/USER_Common.pp \
 ./SRC/USER_Distance.pp \
+./SRC/USER_I2C.pp \
 ./SRC/USER_Motion.pp \
 ./SRC/USER_Pwm.pp \
 ./SRC/USER_Sci.pp \
@@ -117,6 +123,7 @@ C_DEPS__QUOTED += \
 "SRC\DSP2833x_CpuTimers.pp" \
 "SRC\DSP2833x_DefaultIsr.pp" \
 "SRC\DSP2833x_GlobalVariableDefs.pp" \
+"SRC\DSP2833x_I2C.pp" \
 "SRC\DSP2833x_MemCopy.pp" \
 "SRC\DSP2833x_PieCtrl.pp" \
 "SRC\DSP2833x_PieVect.pp" \
@@ -134,6 +141,7 @@ C_DEPS__QUOTED += \
 "SRC\USER_ADC.pp" \
 "SRC\USER_Common.pp" \
 "SRC\USER_Distance.pp" \
+"SRC\USER_I2C.pp" \
 "SRC\USER_Motion.pp" \
 "SRC\USER_Pwm.pp" \
 "SRC\USER_Sci.pp" \
@@ -151,6 +159,7 @@ OBJS__QUOTED += \
 "SRC\DSP2833x_CpuTimers.obj" \
 "SRC\DSP2833x_DefaultIsr.obj" \
 "SRC\DSP2833x_GlobalVariableDefs.obj" \
+"SRC\DSP2833x_I2C.obj" \
 "SRC\DSP2833x_MemCopy.obj" \
 "SRC\DSP2833x_PieCtrl.obj" \
 "SRC\DSP2833x_PieVect.obj" \
@@ -169,6 +178,7 @@ OBJS__QUOTED += \
 "SRC\USER_ADC.obj" \
 "SRC\USER_Common.obj" \
 "SRC\USER_Distance.obj" \
+"SRC\USER_I2C.obj" \
 "SRC\USER_Motion.obj" \
 "SRC\USER_Pwm.obj" \
 "SRC\USER_Sci.obj" \
@@ -194,6 +204,7 @@ C_SRCS__QUOTED += \
 "../SRC/DSP2833x_CpuTimers.c" \
 "../SRC/DSP2833x_DefaultIsr.c" \
 "../SRC/DSP2833x_GlobalVariableDefs.c" \
+"../SRC/DSP2833x_I2C.c" \
 "../SRC/DSP2833x_MemCopy.c" \
 "../SRC/DSP2833x_PieCtrl.c" \
 "../SRC/DSP2833x_PieVect.c" \
@@ -211,6 +222,7 @@ C_SRCS__QUOTED += \
 "../SRC/USER_ADC.c" \
 "../SRC/USER_Common.c" \
 "../SRC/USER_Distance.c" \
+"../SRC/USER_I2C.c" \
 "../SRC/USER_Motion.c" \
 "../SRC/USER_Pwm.c" \
 "../SRC/USER_Sci.c" \

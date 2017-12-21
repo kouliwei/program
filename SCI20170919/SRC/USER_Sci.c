@@ -396,7 +396,7 @@ static void Scib_Init(void)
 	ScibRegs.SCICTL2.bit.RXBKINTENA =1;//接收中断使能
 
 	#if (CPU_FRQ_150MHZ)
-	      ScibRegs.SCIHBAUD    =0x0000;  // 9600 baud @LSPCLK = 37.5MHz.
+	      ScibRegs.SCIHBAUD    =0x0000;  // 115200 baud @LSPCLK = 37.5MHz.
 	      ScibRegs.SCILBAUD    =0x0028;
 	#endif
 	#if (CPU_FRQ_100MHZ)
